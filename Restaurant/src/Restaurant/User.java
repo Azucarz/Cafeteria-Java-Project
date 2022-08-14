@@ -1,9 +1,10 @@
 package Restaurant;
 
+import java.util.ArrayList;
+
 public abstract class User {
 
-    private String name, password, email;
-    private String number;
+    private String name, password, email, number;
 
     public User(String name, String password, String email, String number) {
         this.name = name;
@@ -43,4 +44,5 @@ public abstract class User {
     public void setNumber(String number) {
         this.number = number;
     }
+
 }
