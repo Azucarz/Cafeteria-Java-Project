@@ -1,9 +1,16 @@
 package Restaurant;
 
-public class User {
+public abstract class User {
 
     private String name, password, email;
-    private long number;
+    private String number;
+
+    public User(String name, String password, String email, String number) {
+        this.name = name;
+        this.password = password;
+        this.email = email;
+        this.number = number;
+    }
 
     public String getName() {
         return name;
@@ -29,11 +36,11 @@ public class User {
         this.email = email;
     }
 
-    public long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 }

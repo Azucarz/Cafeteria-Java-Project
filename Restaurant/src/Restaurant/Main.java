@@ -21,7 +21,9 @@ public class Main extends JFrame implements ActionListener {
     JPasswordField p1; // password field
 
     public static void main(String arr[]) {
-
+        DataIO data = new DataIO();
+        Customer c = new Customer("Zach","123","sample@mail.com","0166645771");
+        data.write(c,"new");
         new Main(); // need to change
 
     }
