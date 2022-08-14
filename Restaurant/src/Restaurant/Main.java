@@ -1,14 +1,10 @@
 package Restaurant;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.*;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.RandomAccessFile;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
 
@@ -22,8 +18,13 @@ public class Main extends JFrame implements ActionListener {
 
     public static void main(String arr[]) {
         DataIO data = new DataIO();
-        Customer c = new Customer("Zach","123","sample@mail.com","0166645771");
-        data.write(c,"new");
+
+        ArrayList<Cart> cart = new ArrayList<>();
+        List<Cart> l = Arrays.asList(new Cart("sample1", 1.40, 2), new Cart("sample2", 1, 2), new Cart("sample3", 1.50, 2));
+        cart.addAll(l);
+        Customer c = new Customer("Zach","123","sample@mail.com","0166645771",10.23,cart);
+        System.out.println(c.getBalance());
+        data.write(c,"customer");
         new Main(); // need to change
 
     }
