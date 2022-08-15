@@ -2,11 +2,14 @@ package Restaurant;
 
 import javax.swing.*;
 import java.awt.event.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Main extends JFrame implements ActionListener {
+
+
 
     JLabel l1, l2, l3;   //label for email and password
 
@@ -18,13 +21,10 @@ public class Main extends JFrame implements ActionListener {
 
     public static void main(String arr[]) {
         DataIO data = new DataIO();
+        data.read("customer");
+        data.read("cart");
 
-        ArrayList<Cart> cart = new ArrayList<>();
-        List<Cart> l = Arrays.asList(new Cart("sample1", 1.40, 2), new Cart("sample2", 1, 2), new Cart("sample3", 1.50, 2));
-        cart.addAll(l);
-        Customer c = new Customer("Zach","123","sample@mail.com","0166645771",10.23,cart);
-        System.out.println(c.getBalance());
-        data.write(c,"customer");
+
         new Main(); // need to change
 
     }
