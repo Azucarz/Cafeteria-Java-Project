@@ -39,34 +39,40 @@ public class DataIO {
 
     public void write(String file) {
         openFile(file);
-        if (file.equals("manager")) {
-//            x.format("%s %s %s %s%n", ((Manager) o).getName(), ((Manager) o).getPassword(), ((Manager) o).getEmail(), ((Manager) o).getNumber());
-            closeFormatter();
-        } else if (file.equals("customer")) {
-            for (int i = 0; i < Customer.customers.size(); i++) {
-                Customer c = Customer.customers.get(i);
-                x.format("%s %s %s %s %.2f%n", c.getName(), c.getPassword(), c.getEmail(), c.getNumber(), c.getBalance());
-            }
-            closeFormatter();
-            for (int i = 0; i < Customer.customers.size(); i++) {
-                Customer c = Customer.customers.get(i);
-                if (!(c.getCart().size() == 0)) {
-                    openFile("cart");
-                    x.format("%s%n", c.getName());
-                    System.out.println("Pass 1");
-                    for (int y = 0; y < c.getCart().size(); y++) {
-                        String item = c.getCart().get(y).getItem();
-                        double price = c.getCart().get(y).getPrice();
-                        int amt =  c.getCart().get(y).getAmt();
-                        x.format("%s %.2f %d%n", item, price, amt);
-                        System.out.println("Pass 2");
-                    }
-                    x.format("\n");
-                    System.out.println("Pass 3");
-                    closeFormatter();
-                    System.out.println("Pass 4");
+
+        switch (file){
+
+            case "manager":
+
+                for (int i = 0; i < Manager.managers.size(); i++) {
+                    Manager m = Manager.managers.get(i);
+                    x.format("%s %s %s %s %n", m.getName(), m.getPassword(), m.getEmail(), m.getNumber());
                 }
-            }
+                closeFormatter();
+                break;
+            case "customer":
+                for (int i = 0; i < Customer.customers.size(); i++) {
+                    Customer c = Customer.customers.get(i);
+                    x.format("%s %s %s %s %.2f%n", c.getName(), c.getPassword(), c.getEmail(), c.getNumber(), c.getBalance());
+                }
+                closeFormatter();
+
+                for (int i = 0; i < Customer.customers.size(); i++) {
+                    Customer c = Customer.customers.get(i);
+                    if (!(c.getCart().size() == 0)) {
+                        openFile("cart");
+                        x.format("%s%n", c.getName());
+                        for (int y = 0; y < c.getCart().size(); y++) {
+                            String item = c.getCart().get(y).getItem();
+                            double price = c.getCart().get(y).getPrice();
+                            int amt =  c.getCart().get(y).getAmt();
+                            x.format("%s %.2f %d%n", item, price, amt);
+                        }
+                        x.format("\n");
+                        closeFormatter();
+                    }
+                }
+                break;
         }
     }
 
@@ -74,27 +80,39 @@ public class DataIO {
         openExistingFile(file);
         switch (file) {
             case "customer":
-                String name, password, email, number;
+                String cname, cpassword, cemail, cnumber;
                 double balance;
                 ArrayList<Cart> cart = new ArrayList<Cart>();
                 ArrayList<Customer> customers = new ArrayList<Customer>();
 
                 while (y.hasNext()) {
-                    name = y.next();
-                    password = y.next();
-                    email = y.next();
-                    number = y.next();
+                    cname = y.next();
+                    cpassword = y.next();
+                    cemail = y.next();
+                    cnumber = y.next();
                     balance = Double.parseDouble(y.next());
 
-                    customers.add(new Customer(name, password, email, number, balance, cart));
-                    if (y.hasNextLine()) {
-                        y.nextLine();
-                    }
+                    customers.add(new Customer(cname, cpassword, cemail, cnumber, balance, cart));
+                    if (y.hasNextLine()) {y.nextLine();}
                 }
                 Customer.setCustomers(customers);
-
-            case "manager":
                 break;
+            case "manager":
+                String mname, mpassword, memail, mnumber;
+                ArrayList<Manager> managers = new ArrayList<Manager>();
+
+                while(y.hasNext()) {
+                    mname = y.next();
+                    mpassword = y.next();
+                    memail = y.next();
+                    mnumber = y.next();
+
+                    managers.add(new Manager(mname,mpassword,memail,mnumber));
+                    if (y.hasNextLine()) {y.nextLine();}
+                }
+                Manager.setManagers(managers);
+                break;
+
             case "menu":
                 break;
             case "order":
@@ -133,47 +151,6 @@ public class DataIO {
 
 
 
-
-
-
-//    public ArrayList readFile(String file){
-//
-//        //initialization of variables
-//
-//        ArrayList<Guest> guestList = new ArrayList<>();
-//        String guestFirstName = "";
-//        String guestLastName = "";
-//        String guestEmail = "";
-//        String guestIC = "";
-//        String guestContact = "";
-//        String guestRoom = "";
-//        String guestStayDays = "";
-//        String guestStartDate = "";
-//
-//        //Explaination:
-//
-//        //While the line has another word beside it
-//        while (y.hasNext()) {
-//            guestFirstName = y.next(); //The characters will be inserted into the variables
-//            guestLastName = y.next();
-//            guestEmail = y.next();
-//            guestIC = y.next();
-//            guestContact = y.next();
-//            guestRoom = y.next();
-//            guestStayDays = y.next();
-//            guestStartDate = y.next();
-//
-//            //The variables will be inseted into an array to create guest objects
-//
-//            guestList.add(new Guest(guestFirstName,guestLastName,guestEmail,Long.parseLong(guestIC),Integer.parseInt(guestContact),Integer.parseInt(guestRoom),Integer.parseInt(guestStayDays),LocalDate.parse(guestStartDate)));
-//
-//            //The system will continue to read if it has a next line
-//            if (y.hasNextLine()){y.nextLine();}
-//        }
-//
-//        //The function will then return the array
-//        return guestList;
-//    }
 
 
 

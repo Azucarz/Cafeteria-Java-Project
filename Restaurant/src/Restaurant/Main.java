@@ -23,7 +23,7 @@ public class Main extends JFrame implements ActionListener {
         DataIO data = new DataIO();
         data.read("customer");
         data.read("cart");
-
+        data.read("manager");
 
         new Main(); // need to change
 
