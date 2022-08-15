@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Customer extends User{
     private ArrayList<Cart> cart;
     private double balance;
+    public static ArrayList<Customer> customers = new ArrayList<Customer>();
 
     public Customer(String name, String password, String email, String number, double balance, ArrayList<Cart> cart) {
         super(name, password, email, number);
@@ -16,6 +17,10 @@ public class Customer extends User{
         super(name, password, email, number);
         this.cart = new ArrayList<Cart>();
         this.balance = 0;
+    }
+
+    public static void setCustomers(ArrayList<Customer> customers) {
+        Customer.customers = customers;
     }
 
     public ArrayList<Cart> getCart() {
