@@ -12,51 +12,87 @@ public class DataIO {
     private Formatter x;       //For writing files
     private Scanner y;         //For reading files
 
-    public void closeFormatter(){x.close();}
-    public void closeScanner(){y.close();}
-
-
-    public void openFile(String file){
-        try{x = new Formatter(file+".txt");}
-        catch (FileNotFoundException e) {e.printStackTrace();}
+    public void closeFormatter() {
+        x.close();
     }
 
-    public void openExistingFile(String file){
-        try{y = new Scanner(new File(file+".txt"));}
-        catch (FileNotFoundException e) {e.printStackTrace();}
+    public void closeScanner() {
+        y.close();
     }
 
-    public void write(Object o,String file){
-        openFile(file);
-        if (o instanceof Manager) {
-            x.format("%s %s %s %s%n",((Manager) o).getName(),((Manager) o).getPassword(),((Manager) o).getEmail(),((Manager) o).getNumber());
-            closeFormatter();
+
+    public void openFile(String file) {
+        try {
+            x = new Formatter(file + ".txt");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
-        else if (o instanceof Customer) {
-            x.format("%s %s %s %s %.2f%n",((Customer) o).getName(),((Customer) o).getPassword(),((Customer) o).getEmail(),((Customer) o).getNumber(),((Customer) o).getBalance());
-            if (!(((Customer) o).getCart().size() == 0)){
-                closeFormatter();
-                openFile("cart");
-                x.format("%s%n",((Customer) o).getName());
-                for (int i = 0; i < ((Customer) o).getCart().size(); i++) {
-                    String item = ((Customer) o).getCart().get(i).getItem();
-                    double price = ((Customer) o).getCart().get(i).getPrice();
-                    int amt = ((Customer) o).getCart().get(i).getAmt();
+    }
 
-                    x.format("%s %.2f %d%n",item,price,amt);
-                }
-                x.format("%n");
+    public void openExistingFile(String file) {
+        try {
+            y = new Scanner(new File(file + ".txt"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void write(String file) {
+        openFile(file);
+        if (file.equals("manager")) {
+//            x.format("%s %s %s %s%n", ((Manager) o).getName(), ((Manager) o).getPassword(), ((Manager) o).getEmail(), ((Manager) o).getNumber());
+            closeFormatter();
+        } else if (file.equals("customer")) {
+            for (int i = 0; i < Customer.customers.size(); i++) {
+                Customer c = Customer.customers.get(i);
+                x.format("%s %s %s %s %.2f%n", c.getName(), c.getPassword(), c.getEmail(), c.getNumber(), c.getBalance());
             }
             closeFormatter();
+            for (int i = 0; i < Customer.customers.size(); i++) {
+                Customer c = Customer.customers.get(i);
+                if (!(c.getCart().size() == 0)) {
+                    openFile("cart");
+                    x.format("%s%n", c.getName());
+                    System.out.println("Pass 1");
+                    for (int y = 0; y < c.getCart().size(); y++) {
+                        String item = c.getCart().get(y).getItem();
+                        double price = c.getCart().get(y).getPrice();
+                        int amt =  c.getCart().get(y).getAmt();
+                        x.format("%s %.2f %d%n", item, price, amt);
+                        System.out.println("Pass 2");
+                    }
+                    x.format("\n");
+                    System.out.println("Pass 3");
+                    closeFormatter();
+                    System.out.println("Pass 4");
+                }
+            }
         }
     }
 
-    public ArrayList<Object> read(String file){
+    public void read(String file) {
         openExistingFile(file);
-        ArrayList obj =new ArrayList<>();
-        switch(file){
+        switch (file) {
             case "customer":
-                break;
+                String name, password, email, number;
+                double balance;
+                ArrayList<Cart> cart = new ArrayList<Cart>();
+                ArrayList<Customer> customers = new ArrayList<Customer>();
+
+                while (y.hasNext()) {
+                    name = y.next();
+                    password = y.next();
+                    email = y.next();
+                    number = y.next();
+                    balance = Double.parseDouble(y.next());
+
+                    customers.add(new Customer(name, password, email, number, balance, cart));
+                    if (y.hasNextLine()) {
+                        y.nextLine();
+                    }
+                }
+                Customer.setCustomers(customers);
+
             case "manager":
                 break;
             case "menu":
@@ -64,15 +100,38 @@ public class DataIO {
             case "order":
                 break;
             case "cart":
+                String item, owner;
+                double price;
+                int amt;
+                ArrayList<Cart> carts = new ArrayList<Cart>();
+
+                while (y.hasNext()) {
+                    owner = y.next();
+                    y.nextLine();
+                    item = y.next();
+                    price = Double.parseDouble(y.next());
+                    amt = Integer.parseInt(y.next());
+                    carts.add(new Cart(item, price, amt));
+                    if (y.nextLine().equals("")) {
+                        for (int i = 0; i < Customer.customers.size(); i++) {
+                            Customer c = Customer.customers.get(i);
+                            if (c.getName().equals(owner)) {
+                                c.setCart(carts);
+                            }
+                        }
+                    }
+                }
+
+
+
 
 
 
         }
-
-
-
-        return obj;
     }
+}
+
+
 
 
 
@@ -116,7 +175,7 @@ public class DataIO {
 //        return guestList;
 //    }
 
-}
+
 
 
 
