@@ -43,7 +43,6 @@ public class DataIO {
         switch (file){
 
             case "manager":
-
                 for (int i = 0; i < Manager.managers.size(); i++) {
                     Manager m = Manager.managers.get(i);
                     x.format("%s %s %s %s %n", m.getName(), m.getPassword(), m.getEmail(), m.getNumber());
@@ -112,7 +111,6 @@ public class DataIO {
                 }
                 Manager.setManagers(managers);
                 break;
-
             case "menu":
                 break;
             case "order":
@@ -139,11 +137,6 @@ public class DataIO {
                         }
                     }
                 }
-
-
-
-
-
 
         }
     }

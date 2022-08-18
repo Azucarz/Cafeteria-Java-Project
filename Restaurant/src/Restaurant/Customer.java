@@ -1,6 +1,8 @@
 package Restaurant;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 public class Customer extends User{
     private ArrayList<Cart> cart;
@@ -37,5 +39,9 @@ public class Customer extends User{
 
     public void setBalance(double balance) {
         this.balance = this.balance + balance;
+    }
+
+    public static void getCustomer(String name){
+//        customers.stream().filter(string -> string.cart.contains())
     }
 }
