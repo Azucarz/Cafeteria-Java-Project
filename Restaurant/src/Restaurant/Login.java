@@ -16,8 +16,37 @@ public class Login implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
 
-        if (e.getSource() == login){
-            Customer.getCustomer("Sample");
+        if (e.getSource() == login) {
+
+            String user = textuser.getText();
+            String password = String.valueOf(textpass.getPassword());
+
+            if (textuser.getText().isEmpty()){
+                message("Please enter your username");
+            } else if (String.valueOf(textpass.getPassword()).isEmpty()) {
+                message("Please enter your password");
+            }else{
+                Customer c = Customer.getCustomer(textuser.getText());
+                Manager m = Manager.getCustomer(textuser.getText());
+
+                if (c != null && m != null) {
+                    if(c.getName().equals(m.getName())){
+                        sameName();
+                    }
+                }
+
+                if (c != null) {
+                    checkPassword(c,user,password);
+                }
+                else if (m != null) {
+                    checkPassword(m,user,password);
+                }else{
+                    message("User Not Found");
+                    textuser.setText("");
+                    textpass.setText("");
+                }
+            }
+
         }else if(e.getSource() == register){
 
         }
@@ -74,7 +103,38 @@ public class Login implements ActionListener {
 
     }
 
+    private void message(String message){
+        JOptionPane.showMessageDialog(x,message);
+    }
 
+    private void sameName(){
+        String[] role = {"Manager","Student"};
+        String s = (String)JOptionPane.showInputDialog(
+                x,
+                "Select User Type",
+                "Select User Type",
+                JOptionPane.PLAIN_MESSAGE,
+                null,
+                role,
+                "Student");
+    }
 
+    private void checkPassword(User u,String user, String password){
+
+        if (u.getName().equals(user)) {
+            if (u.getPassword().equals(password)) {
+                if (u instanceof Customer) {
+                    //TODO Make Customer GUI
+                    System.out.println("Customer Interface");
+                } else if (u instanceof Manager) {
+                    //TODO Make Manager GUI
+                    System.out.println("Manager Interface");
+                }
+            } else {
+                message("Incorrect Password!");
+                textpass.setText("");
+            }
+        }
+    }
 
 }

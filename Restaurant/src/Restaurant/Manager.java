@@ -22,4 +22,15 @@ public class Manager extends User{
 
     public void getManagers(){}
 
+    public static Manager getCustomer(String name){
+
+        for (int i = 0; i < managers.size(); i++) {
+            if(managers.get(i).getName().matches(name)){
+                return managers.get(i);
+            }
+        }
+        return null;
+    }
+
+
 }
