@@ -38,4 +38,16 @@ public class Customer extends User{
     public void setBalance(double balance) {
         this.balance = this.balance + balance;
     }
+
+    public static Customer getCustomer(String name){
+
+        for (int i = 0; i < customers.size(); i++) {
+            if(customers.get(i).getName().matches(name)){
+                return customers.get(i);
+            }
+        }
+        return null;
+    }
+
+
 }
