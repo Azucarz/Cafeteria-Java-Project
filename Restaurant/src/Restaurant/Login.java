@@ -5,8 +5,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class Login implements ActionListener {
-    private JFrame x;
+public class Login extends UI implements ActionListener {
+    private static JFrame x;
     private JPanel main,username,password,buttons;
     private Label labeluser,labelpass;
     private TextField textuser;
@@ -22,9 +22,9 @@ public class Login implements ActionListener {
             String password = String.valueOf(textpass.getPassword());
 
             if (textuser.getText().isEmpty()){
-                message("Please enter your username");
+                message(x,"Please enter your username");
             } else if (String.valueOf(textpass.getPassword()).isEmpty()) {
-                message("Please enter your password");
+                message(x,"Please enter your password");
             }else{
                 Customer c = Customer.getCustomer(textuser.getText());
                 Manager m = Manager.getCustomer(textuser.getText());
@@ -41,7 +41,7 @@ public class Login implements ActionListener {
                 else if (m != null) {
                     checkPassword(m,user,password);
                 }else{
-                    message("User Not Found");
+                    message(x,"User Not Found");
                     textuser.setText("");
                     textpass.setText("");
                 }
@@ -91,21 +91,11 @@ public class Login implements ActionListener {
         x.add(main);
         x.pack();
         x.setResizable(false);
-        centreWindow(x);
+        centerWindow(x);
         x.setVisible(true);
     }
 
-    private void centreWindow(Window frame) {
-        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
-        int xAxis = (int) ((dimension.getWidth() - frame.getWidth()) / 2);
-        int yAxis = (int) ((dimension.getHeight() - frame.getHeight()) / 2);
-        frame.setLocation(xAxis, yAxis);
 
-    }
-
-    private void message(String message){
-        JOptionPane.showMessageDialog(x,message);
-    }
 
     private void sameName(){
         String[] role = {"Manager","Student"};
@@ -124,17 +114,24 @@ public class Login implements ActionListener {
         if (u.getName().equals(user)) {
             if (u.getPassword().equals(password)) {
                 if (u instanceof Customer) {
-                    //TODO Make Customer GUI
-                    System.out.println("Customer Interface");
+                    textuser.setText("");
+                    textpass.setText("");
+                    x.setVisible(false);
+                    Customer u1 = (Customer) u;
+                    CustomerUI cui = new CustomerUI(u1);
+
                 } else if (u instanceof Manager) {
                     //TODO Make Manager GUI
                     System.out.println("Manager Interface");
                 }
             } else {
-                message("Incorrect Password!");
+                message(x,"Incorrect Password!");
                 textpass.setText("");
             }
         }
     }
 
+    public static JFrame getX() {
+        return x;
+    }
 }
