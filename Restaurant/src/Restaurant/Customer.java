@@ -35,7 +35,9 @@ public class Customer extends User{
         return balance;
     }
 
-    public void setBalance(double balance) {
+    public void setBalance(double balance) {this.balance = balance;}
+
+    public void increaseBalance(double balance) {
         this.balance = this.balance + balance;
     }
 
