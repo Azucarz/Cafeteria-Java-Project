@@ -140,6 +140,30 @@ public class DataIO {
 
         }
     }
+
+
+    public void update(User u){
+        if(u instanceof Customer){
+            Customer c = (Customer) u;
+
+            for (int i = 0; i < Customer.customers.size(); i++) {
+                Customer current = Customer.customers.get(i);
+                if (current.getName().equals(c.getName())) {
+                    current.setName(c.getName());
+                    current.setEmail(c.getEmail());
+                    current.setBalance(c.getBalance());
+                    current.setCart(c.getCart());
+                }
+
+                //TODO Exception Handling
+            }
+            write("customer");
+
+        }
+        else if (u instanceof Manager) {
+            //TODO Add Manager Update Logic
+        }
+    }
 }
 
 

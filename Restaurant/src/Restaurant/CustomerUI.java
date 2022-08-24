@@ -7,13 +7,18 @@ import java.awt.event.ActionListener;
 
 public class CustomerUI extends UI implements ActionListener {
 
-    private JFrame cui;
+    private static JFrame cui;
     private JPanel buttons, menu, balance, balanceContainer, titleContainer;
     private GridLayout gridSideContainer, gridMenuContainer;
     private JButton profile, orders, cart, logout,food, beverages, reload;
-    private JLabel balanceAmt, title;
+    private JLabel title, balanceAmt;
+    private Customer c;
+    private DataIO data = new DataIO();
+
+    public CustomerUI(){}
 
     public CustomerUI(Customer c) {
+        this.c = c;
         cui = new JFrame();
         buttons = new JPanel();
         menu = new JPanel();
@@ -46,10 +51,7 @@ public class CustomerUI extends UI implements ActionListener {
         cart = new JButton("Cart");
         logout = new JButton("Logout");
 
-        profile.addActionListener(this);
-        orders.addActionListener(this);
-        cart.addActionListener(this);
-        logout.addActionListener(this);
+
 
         food = new JButton("Food");
         beverages = new JButton("Beverages");
@@ -79,6 +81,13 @@ public class CustomerUI extends UI implements ActionListener {
         buttons.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         buttons.setPreferredSize(new Dimension(150,768));
 
+        profile.addActionListener(this);
+        orders.addActionListener(this);
+        cart.addActionListener(this);
+        logout.addActionListener(this);
+        reload.addActionListener(this);
+        food.addActionListener(this);
+        beverages.addActionListener(this);
 
 
         cui.add(titleContainer,BorderLayout.PAGE_START);
@@ -91,11 +100,55 @@ public class CustomerUI extends UI implements ActionListener {
 
     }
 
+    public JFrame getCui() {return cui;}
+
+    public JLabel getBalanceAmt() {return balanceAmt;}
+
+    public void reload(Customer customer, JLabel label, JFrame parent) throws Exception {
+        String amt = JOptionPane.showInputDialog("Reload Amount");
+
+        if (amt != null) {
+            if(amt.isEmpty()){
+                throw new Exception();
+            }
+
+            try{
+                Double.parseDouble(amt);
+            }catch (Exception ex){
+                throw new Exception();
+            }
+
+            int i = JOptionPane.showConfirmDialog(parent,"Are you sure?\n" + "Reload Amount: RM " + amt );
+
+            if(i == JOptionPane.YES_OPTION) {
+                customer.increaseBalance(Double.parseDouble(amt));
+                label.setText("RM " + customer.getBalance());
+                data.update(customer);
+                amt = null;
+            }
+            else if(i == JOptionPane.NO_OPTION){reload(this.c,this.balanceAmt,this.cui);}
+            else if (i == JOptionPane.CANCEL_OPTION) {} //Ignores Error When Clicking Cancel
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
+
         if (e.getSource() == logout) {
-            cui.setVisible(false);
-            Login.getX().setVisible(true);
+            cui.dispose();
+            Login.getLogin().setVisible(true);
         }
+
+        else if (e.getSource() == reload){
+            try{reload(this.c,this.balanceAmt,this.cui);}
+            catch(Exception ex){
+                JOptionPane.showMessageDialog(cui,"Please enter a valid reload amount");
+            }
+        }
+
+        else if (e.getSource() == profile) {
+            ProfileUI p = new ProfileUI(c);
+        }
+
     }
 }

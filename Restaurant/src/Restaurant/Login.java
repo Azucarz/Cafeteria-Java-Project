@@ -13,6 +13,11 @@ public class Login extends UI implements ActionListener {
     private JPasswordField textpass;
     private Button login,register;
 
+
+    public static CustomerUI cui;
+
+
+
     @Override
     public void actionPerformed(ActionEvent e) {
 
@@ -118,7 +123,7 @@ public class Login extends UI implements ActionListener {
                     textpass.setText("");
                     x.setVisible(false);
                     Customer u1 = (Customer) u;
-                    CustomerUI cui = new CustomerUI(u1);
+                    cui = new CustomerUI(u1);
 
                 } else if (u instanceof Manager) {
                     //TODO Make Manager GUI
@@ -131,7 +136,7 @@ public class Login extends UI implements ActionListener {
         }
     }
 
-    public static JFrame getX() {
+    public static JFrame getLogin() {
         return x;
     }
 }
