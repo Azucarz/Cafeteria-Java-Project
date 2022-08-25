@@ -201,7 +201,7 @@ class MyFrame extends JFrame implements ActionListener {
             String textFieldValue = tname.getText();
             String textFieldprice = tmno.getText();
 
-            File file = new File("C:\\Users\\User\\Desktop\\Test Version\\src\\Database\\menu.txt");
+            File file = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\menu.txt");
 
             // if file doesnt exists, then create it
             if (!file.exists())
@@ -209,7 +209,7 @@ class MyFrame extends JFrame implements ActionListener {
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textFieldValue + " " + textFieldprice);
+            bw.write(textFieldValue + " " + textFieldprice + "\r\n");
             bw.close();
 
         } catch (IOException ex) {
