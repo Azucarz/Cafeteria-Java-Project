@@ -130,40 +130,49 @@ public class ProfileUI extends UI implements ActionListener {
                 balanceContainer.setVisible(true);
                 changePassword.setText("Change Password");
                 edit.setText("Edit");
-            }
-            String cpass = JOptionPane.showInputDialog("Please Enter Your Current Password");
-            if(cpass != null) {
-                if (cpass.equals(c.getPassword())) {
+            }else {
+                String cpass = JOptionPane.showInputDialog("Please Enter Your Current Password");
+                if (cpass != null) {
+                    if (cpass.equals(c.getPassword())) {
 
-                    JPanel panel = new JPanel();
-                    JPanel pass1Container = new JPanel();
-                    JPanel pass2Container = new JPanel();
+                        JPanel panel = new JPanel();
+                        JPanel pass1Container = new JPanel();
+                        JPanel pass2Container = new JPanel();
 
-                    JLabel pass1Label = new JLabel("New Password");
-                    JLabel pass2Label = new JLabel("Re-enter Password");
+                        JLabel pass1Label = new JLabel("New Password");
+                        JLabel pass2Label = new JLabel("Re-enter Password");
 
-                    TextField pass1 = new TextField(25);
-                    TextField pass2 = new TextField(25);
+                        TextField pass1 = new TextField(25);
+                        TextField pass2 = new TextField(25);
 
-                    pass1Container.add(pass1Label);
-                    pass1Container.add(pass1);
+                        pass1Container.add(pass1Label);
+                        pass1Container.add(pass1);
 
-                    pass2Container.add(pass2Label);
-                    pass2Container.add(pass2);
+                        pass2Container.add(pass2Label);
+                        pass2Container.add(pass2);
 
-                    panel.setLayout(new GridLayout(2, 1));
+                        panel.setLayout(new GridLayout(2, 1));
 
-                    panel.add(pass1Container);
-                    panel.add(pass2Container);
+                        panel.add(pass1Container);
+                        panel.add(pass2Container);
 
-                    int confirmPass = JOptionPane.showConfirmDialog(frame, panel, "", JOptionPane.OK_CANCEL_OPTION);
+                        int confirmPass = JOptionPane.showConfirmDialog(frame, panel, "", JOptionPane.OK_CANCEL_OPTION);
+                        //TODO Add Validation
+                        if (pass1.getText().equals(pass2.getText())) {
+                            c.setPassword(pass1.getText());
+                            data.update(c);
+                            frame.dispose();
+                            Login.cui.getCui().dispose();
+                            Login.getLogin().setVisible(true);
+                        }
+
+
+                    }
 
                 }
 
+
             }
-
-
-
         } else if(e.getSource() == reload){
             CustomerUI x = new CustomerUI();
                 try {

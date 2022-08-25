@@ -1,6 +1,7 @@
 package Restaurant;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Formatter;
@@ -56,21 +57,27 @@ public class DataIO {
                 }
                 closeFormatter();
 
+                openFile("cart");
                 for (int i = 0; i < Customer.customers.size(); i++) {
                     Customer c = Customer.customers.get(i);
+
                     if (!(c.getCart().size() == 0)) {
-                        openFile("cart");
-                        x.format("%s%n", c.getName());
-                        for (int y = 0; y < c.getCart().size(); y++) {
-                            String item = c.getCart().get(y).getItem();
-                            double price = c.getCart().get(y).getPrice();
-                            int amt =  c.getCart().get(y).getAmt();
-                            x.format("%s %.2f %d%n", item, price, amt);
+
+
+                        for (int j = 0; j < c.getCart().size(); j++) {
+                            Cart current = c.getCart().get(j);
+
+                            String item = current.getItem();
+                            double price = current.getPrice();
+                            int amt =  current.getAmt();
+
+                            x.format("%s %.2f %d %n", item, price, amt);
                         }
-                        x.format("\n");
-                        closeFormatter();
+                        x.format("%s %n", c.getName());
                     }
                 }
+
+                closeFormatter();
                 break;
         }
     }
@@ -116,30 +123,40 @@ public class DataIO {
             case "order":
                 break;
             case "cart":
-                String item, owner;
+                String name, item, tmp;
                 double price;
                 int amt;
-                ArrayList<Cart> carts = new ArrayList<Cart>();
+                ArrayList<Cart> carts = new ArrayList<>();
+                ArrayList names = new ArrayList<>();
 
-                while (y.hasNext()) {
-                    owner = y.next();
-                    y.nextLine();
-                    item = y.next();
-                    price = Double.parseDouble(y.next());
-                    amt = Integer.parseInt(y.next());
-                    carts.add(new Cart(item, price, amt));
-                    if (y.nextLine().equals("")) {
-                        for (int i = 0; i < Customer.customers.size(); i++) {
-                            Customer c = Customer.customers.get(i);
-                            if (c.getName().equals(owner)) {
-                                c.setCart(carts);
-                            }
-                        }
-                    }
+                for (int i = 0; i < Customer.customers.size(); i++) {
+                    names.add(Customer.customers.get(i).getName());
                 }
 
+                while(y.hasNext()){
+                    tmp = y.next();
+                    if (names.contains(tmp)){
+                        name = tmp;
+                        for (int i = 0; i < Customer.customers.size(); i++) {
+                            Customer current = Customer.customers.get(i);
+                            if (current.getName().equals(name)) {
+                                current.setCart(carts);
+                                carts = new ArrayList<>();
+                            }
+                        }
+
+                    } else {
+                        item = tmp;
+                        price = y.nextDouble();
+                        amt = y.nextInt();
+
+                        carts.add(new Cart(item, price, amt));
+                    }
+
+                }
         }
     }
+
 
 
     public void update(User u){
@@ -148,13 +165,12 @@ public class DataIO {
 
             for (int i = 0; i < Customer.customers.size(); i++) {
                 Customer current = Customer.customers.get(i);
-                if (current.getName().equals(c.getName())) {
+                if (c.getName().equals(current.getName())) {
                     current.setName(c.getName());
                     current.setEmail(c.getEmail());
                     current.setBalance(c.getBalance());
                     current.setCart(c.getCart());
                 }
-
                 //TODO Exception Handling
             }
             write("customer");
