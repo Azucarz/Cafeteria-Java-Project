@@ -1,6 +1,9 @@
 package Restaurant;
 
+
 import java.util.ArrayList;
+
+import static javax.swing.text.StyleConstants.setBackground;
 
 public class Manager extends User{
 
