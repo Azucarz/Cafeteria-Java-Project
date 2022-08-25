@@ -1,5 +1,8 @@
-Bob
-sample1 1.20 3
-sample1 1.20 3
-sample1 1.20 3
-
+ChickenRice 12.50 1 
+Chicken 12.50 1 
+Rice 12.50 1 
+Zach 
+Cake 12.50 1 
+Cheese 12.50 1 
+Cookie 12.50 1 
+Bob 
