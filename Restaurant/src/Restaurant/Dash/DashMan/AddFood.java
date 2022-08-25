@@ -200,6 +200,12 @@ class MyFrame extends JFrame implements ActionListener {
         try {
             String textFieldValue = tname.getText();
             String textFieldprice = tmno.getText();
+            String datatype;
+            if (food.isSelected())
+                datatype = "Food";
+            else
+                datatype = "Drink";
+
 
             File file = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\menu.txt");
 
@@ -209,7 +215,7 @@ class MyFrame extends JFrame implements ActionListener {
 
             FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
             BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textFieldValue + " " + textFieldprice + "\r\n");
+            bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
             bw.close();
 
         } catch (IOException ex) {
