@@ -1,18 +1,21 @@
 package Restaurant.Dash.DashMan;
 
+import Restaurant.DataIO;
+import Restaurant.Drink;
+import Restaurant.Food;
+import Restaurant.UI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
 
-class MyFrame extends JFrame implements ActionListener {
+class addFoodDialog extends UI implements ActionListener {
 
     // Components of the Form
-    private Container c;
+    private DataIO data = new DataIO();
+
+    private JFrame frame;
     private JLabel title;
     private JLabel name;
     private JTextField tname;
@@ -22,110 +25,98 @@ class MyFrame extends JFrame implements ActionListener {
     private JRadioButton food;
     private JRadioButton drink;
     private ButtonGroup gengp;
-    private JLabel serialnumber;
 
-    private JLabel add;
-    private JTextArea tadd;
     private JCheckBox term;
     private JButton sub;
     private JButton reset;
     private JTextArea tout;
-    private JLabel res;
     private JTextArea resadd;
 
 
 
-    // constructor, to initialize the components
-    // with default values.
-    public MyFrame()
-    {
-        setTitle("Adding Menu Form");
-        setBounds(300, 90, 900, 600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setResizable(false);
-
-        c = getContentPane();
-        c.setLayout(null);
+    public addFoodDialog() {
+        frame = new JFrame();
+        frame.setTitle("Adding Menu Form");
+        frame.setBounds(300, 90, 900, 600);
+        frame.setResizable(false);
+        frame.getContentPane().setLayout(null);
 
         title = new JLabel("Adding Menu Form");
         title.setFont(new Font("Arial", Font.PLAIN, 30));
         title.setSize(300, 30);
         title.setLocation(300, 30);
-        c.add(title);
+        frame.add(title);
+
 
         name = new JLabel("Name");
-        name.setFont(new Font("Arial", Font.PLAIN, 20));
+        name.setFont(new Font("Arial", Font.PLAIN, 15));
         name.setSize(100, 20);
         name.setLocation(100, 100);
-        c.add(name);
+        frame.add(name);
 
         tname = new JTextField();
         tname.setFont(new Font("Arial", Font.PLAIN, 15));
         tname.setSize(190, 20);
         tname.setLocation(200, 100);
-        c.add(tname);
+        frame.add(tname);
+
+
 
         mno = new JLabel("Price");
-        mno.setFont(new Font("Arial", Font.PLAIN, 20));
+        mno.setFont(new Font("Arial", Font.PLAIN, 15));
         mno.setSize(100, 20);
         mno.setLocation(100, 150);
-        c.add(mno);
+        frame.add(mno);
 
         tmno = new JTextField();
         tmno.setFont(new Font("Arial", Font.PLAIN, 15));
         tmno.setSize(150, 20);
         tmno.setLocation(200, 150);
-        c.add(tmno);
+        frame.add(tmno);
 
-        tpeoffood = new JLabel("T.O.F");
-        tpeoffood.setFont(new Font("Arial", Font.PLAIN, 20));
+        tpeoffood = new JLabel("Type of Item");
+        tpeoffood.setFont(new Font("Arial", Font.PLAIN, 15));
         tpeoffood.setSize(100, 20);
         tpeoffood.setLocation(100, 200);
-        c.add(tpeoffood);
+        frame.add(tpeoffood);
 
         food = new JRadioButton("Food");
         food.setFont(new Font("Arial", Font.PLAIN, 15));
-        food.setSelected(true);
+        food.setSelected(false);
         food.setSize(75, 20);
         food.setLocation(200, 200);
-        c.add(food);
+        frame.add(food);
 
         drink = new JRadioButton("Drink");
         drink.setFont(new Font("Arial", Font.PLAIN, 15));
         drink.setSelected(false);
         drink.setSize(80, 20);
         drink.setLocation(275, 200);
-        c.add(drink);
+        frame.add(drink);
 
         gengp = new ButtonGroup();
         gengp.add(food);
         gengp.add(drink);
 
-        serialnumber = new JLabel("Serial Number");
-        serialnumber.setFont(new Font("Arial", Font.PLAIN, 20));
-        serialnumber.setSize(100, 20);
-        serialnumber.setLocation(100, 250);
-        c.add(serialnumber);
-
         term = new JCheckBox("I authorize to add this menu.");
         term.setFont(new Font("Arial", Font.PLAIN, 15));
         term.setSize(250, 20);
         term.setLocation(150, 400);
-        c.add(term);
+        frame.add(term);
 
         sub = new JButton("Submit");
         sub.setFont(new Font("Arial", Font.PLAIN, 15));
         sub.setSize(100, 20);
         sub.setLocation(150, 450);
         sub.addActionListener(this);
-        c.add(sub);
+        frame.add(sub);
 
         reset = new JButton("Reset");
         reset.setFont(new Font("Arial", Font.PLAIN, 15));
         reset.setSize(100, 20);
         reset.setLocation(270, 450);
         reset.addActionListener(this);
-        c.add(reset);
+        frame.add(reset);
 
         tout = new JTextArea();
         tout.setFont(new Font("Arial", Font.PLAIN, 15));
@@ -133,27 +124,18 @@ class MyFrame extends JFrame implements ActionListener {
         tout.setLocation(500, 100);
         tout.setLineWrap(true);
         tout.setEditable(false);
-        c.add(tout);
+        frame.add(tout);
 
-        res = new JLabel("");
-        res.setFont(new Font("Arial", Font.PLAIN, 20));
-        res.setSize(500, 25);
-        res.setLocation(100, 500);
-        c.add(res);
 
         resadd = new JTextArea();
         resadd.setFont(new Font("Arial", Font.PLAIN, 15));
         resadd.setSize(200, 75);
         resadd.setLocation(580, 175);
         resadd.setLineWrap(true);
-        c.add(resadd);
-
-        setVisible(true);
+        frame.add(resadd);
+        frame.setVisible(true);
     }
 
-    // method actionPerformed()
-    // to get the action performed
-    // by the user and act accordingly
     public void actionPerformed(ActionEvent e)
     {
         if (e.getSource() == sub) {
@@ -175,72 +157,52 @@ class MyFrame extends JFrame implements ActionListener {
 
                 tout.setText(data + data1 );
                 tout.setEditable(false);
-                res.setText("Added Successfully..");
+                message(frame,"Item has been added successfully!","Item Added");
+                frame.dispose(); //TODO Exception Handling Instead?
             }
             else {
                 tout.setText("");
                 resadd.setText("");
-                res.setText("Please accept the"
-                        + " terms & conditions..");
+                message(frame,"Please accept the terms & conditions","Terms & Conditions");
+
             }
         }
 
         else if (e.getSource() == reset) {
-            String def = "";
-            tname.setText(def);
-            tadd.setText(def);
-            tmno.setText(def);
-            res.setText(def);
-            tout.setText(def);
-            term.setSelected(false);
-            resadd.setText(def);
+            try {
+                reset();
+            }catch (NullPointerException nullPointerException){
+                message(frame,"The form is already cleared.","Form is Empty");
+            }
         }
 
 
         try {
             String textFieldValue = tname.getText();
-            String textFieldprice = tmno.getText();
-            String datatype;
+            String textFieldPrice = tmno.getText();
+
             if (food.isSelected()) {
-                datatype = "Food";
-                File file = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\food.txt");
-                if (!file.exists())
-                    file.createNewFile();
-
-                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
-                bw.close();
-
+                Food.food.add(new Food(textFieldValue,Double.parseDouble(textFieldPrice)));
+                data.write("food");
             }else{
-                datatype = "Drink";
-                File file2 = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\drink.txt");
-                if (!file2.exists())
-                    file2.createNewFile();
-
-                FileWriter fw = new FileWriter(file2.getAbsoluteFile(), true);
-                BufferedWriter bw = new BufferedWriter(fw);
-                bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
-                bw.close();
+                Drink.drink.add(new Drink(textFieldValue,Double.parseDouble(textFieldPrice)));
+                data.write("drink");
             }
 
-
-
-
-        } catch (IOException ex) {
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
 
 
     }
-}
 
-// Driver Code
-class addmenu {
-
-    public static void main(String[] args) throws Exception
-    {
-        MyFrame f = new MyFrame();
-
+    private void reset(){
+        String def = "";
+        tname.setText(def);
+        tmno.setText(def);
+        tout.setText(def);
+        term.setSelected(false);
+        resadd.setText(def);
     }
+
 }

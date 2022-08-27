@@ -1,2 +1,9 @@
-Test 2.00 Drink
-apple 5.00 Food
+Sample Food  12.00
+Sample Food  12.00
+Sample Food  12.00
+Sample Food  12.00
+Sample Food  12.00
+Good Taco  12.00
+Awesome Taco  30.00
+Awesome Taco  30.00
+Somemore Taco 12.00

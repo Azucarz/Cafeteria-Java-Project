@@ -735,8 +735,7 @@ public class ManagerUI{
 
 
     private void jPanel2MouseListener(MouseEvent evt){
-        JFrame addfood = new MyFrame();
-        addfood.setVisible(true);
+        addFoodDialog addFood = new addFoodDialog();
     }
 
     public JFrame getFrame() {return frame;}

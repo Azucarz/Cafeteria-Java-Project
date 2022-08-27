@@ -13,12 +13,6 @@ public class Customer extends User{
         this.balance = balance;
     }
 
-    public Customer(String name, String password, String email, String number) {
-        super(name, password, email, number);
-        this.cart = new ArrayList<Cart>();
-        this.balance = 0;
-    }
-
     public static void setCustomers(ArrayList<Customer> customers) {
         Customer.customers = customers;
     }
