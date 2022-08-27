@@ -1,2 +1,0 @@
-Test 2.00 Drink
-apple 5.00 Food
