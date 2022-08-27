@@ -201,22 +201,31 @@ class MyFrame extends JFrame implements ActionListener {
             String textFieldValue = tname.getText();
             String textFieldprice = tmno.getText();
             String datatype;
-            if (food.isSelected())
+            if (food.isSelected()) {
                 datatype = "Food";
-            else
+                File file = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\food.txt");
+                if (!file.exists())
+                    file.createNewFile();
+
+                FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
+                bw.close();
+
+            }else{
                 datatype = "Drink";
+                File file2 = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\drink.txt");
+                if (!file2.exists())
+                    file2.createNewFile();
+
+                FileWriter fw = new FileWriter(file2.getAbsoluteFile(), true);
+                BufferedWriter bw = new BufferedWriter(fw);
+                bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
+                bw.close();
+            }
 
 
-            File file = new File("C:\\Users\\User\\Documents\\Degree\\OODJ\\Restaurant\\Java-Project\\menu.txt");
 
-            // if file doesnt exists, then create it
-            if (!file.exists())
-                file.createNewFile();
-
-            FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            bw.write(textFieldValue + " " + textFieldprice + " " + datatype + "\r\n");
-            bw.close();
 
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -232,11 +241,6 @@ class addmenu {
     public static void main(String[] args) throws Exception
     {
         MyFrame f = new MyFrame();
-
-
-
-
-
 
     }
 }
