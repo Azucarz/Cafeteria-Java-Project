@@ -15,4 +15,7 @@ public abstract class UI {
     public void message(Window frame,String message){
         JOptionPane.showMessageDialog(frame,message);
     }
+    public void message(Window frame,String message,String title){
+        JOptionPane.showMessageDialog(frame,message,title,JOptionPane.INFORMATION_MESSAGE);
+    }
 }

@@ -1,5 +1,7 @@
 package Restaurant;
 
+import Restaurant.Dash.DashMan.ManagerUI;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +17,7 @@ public class Login extends UI implements ActionListener {
 
 
     public static CustomerUI cui;
+    public static ManagerUI mui;
 
 
 
@@ -127,7 +130,8 @@ public class Login extends UI implements ActionListener {
 
                 } else if (u instanceof Manager) {
                     //TODO Make Manager GUI
-                    System.out.println("Manager Interface");
+                    Manager u1 = (Manager) u;
+                    mui = new ManagerUI();
                 }
             } else {
                 message(x,"Incorrect Password!");
