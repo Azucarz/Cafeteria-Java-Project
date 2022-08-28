@@ -120,21 +120,34 @@ public class DataIO {
 //      Read Customer Data
 //----------------------------------------------------------------------------------------------------------------------
             case "customer":
-                String cname, cpassword, cemail, cnumber;
-                double balance;
+                String cName = "";
+                String cEmail = "";
+                String cNumber = "";
+                String cTmp = "";
+                int cPassword = 0;
+                double balance = 0;
+
                 ArrayList<Cart> cart = new ArrayList<Cart>();
                 ArrayList<Customer> customers = new ArrayList<Customer>();
 
                 while (y.hasNext()) {
-                    cname = y.next();
-                    cpassword = y.next();
-                    cemail = y.next();
-                    cnumber = y.next();
-                    balance = Double.parseDouble(y.next());
+                    cTmp = y.next();
+                    try{
+                        cPassword = Integer.parseInt(cTmp);
 
-                    customers.add(new Customer(cname, cpassword, cemail, cnumber, balance, cart));
-                    if (y.hasNextLine()) {y.nextLine();}
+                        cEmail = y.next();
+                        cNumber = y.next();
+                        balance = Double.parseDouble(y.next());
+                        customers.add(new Customer(cName.trim(), cPassword, cEmail, cNumber, balance, cart));
+
+                        cName = "";
+
+                    }catch (NumberFormatException e){
+                        cName += cTmp + " ";
+                    }
+
                 }
+
                 Customer.setCustomers(customers);
 
                 closeScanner();
@@ -143,17 +156,28 @@ public class DataIO {
 //      Read Manager Data
 //----------------------------------------------------------------------------------------------------------------------
             case "manager":
-                String mname, mpassword, memail, mnumber;
+                String mName = "";
+                String mEmail = "";
+                String mNumber = "";
+                String mTmp = "";
+                int mPassword;
                 ArrayList<Manager> managers = new ArrayList<Manager>();
 
                 while(y.hasNext()) {
-                    mname = y.next();
-                    mpassword = y.next();
-                    memail = y.next();
-                    mnumber = y.next();
 
-                    managers.add(new Manager(mname,mpassword,memail,mnumber));
-                    if (y.hasNextLine()) {y.nextLine();}
+                    mTmp = y.next();
+                    try{
+                        mPassword = Integer.parseInt(mTmp);
+
+                        mEmail = y.next();
+                        mNumber = y.next();
+
+                        managers.add(new Manager(mName.trim(),mPassword,mEmail,mNumber));
+
+                    }catch (NumberFormatException e){
+                        mName += mTmp + " ";
+                    }
+
                 }
                 Manager.setManagers(managers);
 
@@ -164,35 +188,51 @@ public class DataIO {
 //      Read Customer Cart Data
 //----------------------------------------------------------------------------------------------------------------------
             case "cart":
-                String name, item, tmp;
-                double price;
-                int amt;
                 ArrayList<Cart> carts = new ArrayList<>();
                 ArrayList names = new ArrayList<>();
+                String cartName;
+                Scanner itemScanner;
+
 
                 for (int i = 0; i < Customer.customers.size(); i++) {
                     names.add(Customer.customers.get(i).getName());
                 }
 
-                while(y.hasNext()){
-                    tmp = y.next();
-                    if (names.contains(tmp)){
-                        name = tmp;
+                while(y.hasNextLine()){
+                    cartName = y.nextLine();
+
+                    if (names.contains(cartName.trim())){
                         for (int i = 0; i < Customer.customers.size(); i++) {
+
                             Customer current = Customer.customers.get(i);
-                            if (current.getName().equals(name)) {
+
+                            if (current.getName().equals(cartName.trim())) {
                                 current.setCart(carts);
                                 carts = new ArrayList<>();
                             }
                         }
-
-                    } else {
-                        item = tmp;
-                        price = y.nextDouble();
-                        amt = y.nextInt();
-
-                        carts.add(new Cart(item, price, amt));
                     }
+
+                    else {
+                        itemScanner = new Scanner(cartName);
+                        String cartItem = "";
+                        String cartTmp = "";
+                        double cartPrice = 0;
+                        int cartAmt = 0;
+
+                        while (itemScanner.hasNext()){
+                            cartTmp = itemScanner.next();
+                            try{
+                                cartPrice = Double.parseDouble(cartTmp);
+                                cartAmt = Integer.parseInt(itemScanner.next());
+                                carts.add(new Cart(cartItem.trim(),cartPrice,cartAmt));
+                                cartItem = "";
+                            }catch (NumberFormatException e){
+                                cartItem += cartTmp + " ";
+                            }
+                        }
+                    }
+
                 }
 
                 closeScanner();
@@ -209,7 +249,7 @@ public class DataIO {
                     tmpFood = y.next();
                     try{
                         foodPrice = Double.parseDouble(tmpFood);
-                        Food.food.add(new Food(foodName,foodPrice));
+                        Food.food.add(new Food(foodName.trim(),foodPrice));
                         foodName = "";
                     }catch (NumberFormatException e){
                         foodName += tmpFood + " ";
@@ -231,7 +271,7 @@ public class DataIO {
                     tmpDrink = y.next();
                     try{
                         drinkPrice = Double.parseDouble(tmpDrink);
-                        Drink.drink.add(new Drink(drinkName,drinkPrice));
+                        Drink.drink.add(new Drink(drinkName.trim(),drinkPrice));
                         drinkName = "";
                     }catch (NumberFormatException e){
                         drinkName += tmpDrink + " ";

@@ -4,9 +4,10 @@ import java.util.ArrayList;
 
 public abstract class User {
 
-    private String name, password, email, number;
+    private String name, email, number;
+    private int password;
 
-    public User(String name, String password, String email, String number) {
+    public User(String name, int password, String email, String number) {
         this.name = name;
         this.password = password;
         this.email = email;
@@ -21,11 +22,11 @@ public abstract class User {
         this.name = name;
     }
 
-    public String getPassword() {
+    public int getPassword() {
         return password;
     }
 
-    public void setPassword(String password) {
+    public void setPassword(int password) {
         this.password = password;
     }
 
