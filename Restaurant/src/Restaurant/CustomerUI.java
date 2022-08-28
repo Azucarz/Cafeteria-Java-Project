@@ -55,7 +55,6 @@ public class CustomerUI extends UI implements ActionListener {
         logout = new JButton("Logout");
 
 
-
         food = new JButton("Food");
         beverages = new JButton("Beverages");
 

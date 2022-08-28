@@ -18,8 +18,11 @@ public class CustomerDrinkMenu extends UI implements ActionListener {
 
     public CustomerDrinkMenu(){
         grid = new GridLayout(Drink.drink.size()/3,3);
-        drinkPanel = new JPanel();
+        grid.setHgap(10);
+        grid.setVgap(10);
 
+
+        drinkPanel = new JPanel();
         subPanel = new JPanel();
         subPanel.setLayout(grid);
 
@@ -28,15 +31,16 @@ public class CustomerDrinkMenu extends UI implements ActionListener {
             double foodPrice = Drink.drink.get(i).getPrice();
 
             Button btn = new Button(foodName);
-            btn.setPreferredSize(new Dimension(250,250));
+            btn.setPreferredSize(new Dimension(200,200));
             btn.addActionListener(this);
             subPanel.add(btn);
         }
 
         scrollPanel = new JScrollPane(subPanel);
+        scrollPanel.setOpaque(false);
         scrollPanel.setPreferredSize(new Dimension(800,700));
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);
         scrollPanel.setBorder(BorderFactory.createEmptyBorder(80,30,80,30));
 
         drinkPanel.add(scrollPanel);
