@@ -44,10 +44,10 @@ public class Login extends UI implements ActionListener {
                 }
 
                 if (c != null) {
-                    checkPassword(c,user,Integer.parseInt(password));
+                    checkPassword(c,user.trim(),Integer.parseInt(password));
                 }
                 else if (m != null) {
-                    checkPassword(m,user,Integer.parseInt(password));
+                    checkPassword(m,user.trim(),Integer.parseInt(password));
                 }else{
                     message(x,"User Not Found");
                     textuser.setText("");
@@ -56,7 +56,7 @@ public class Login extends UI implements ActionListener {
             }
 
         }else if(e.getSource() == register){
-
+            Register ui = new Register();
         }
     }
 

@@ -1,3 +1,5 @@
 Zach Wong Zhi Zhen 123 wong@sample.com 0166645771 2070.00
 Bob 123 wong@sample 0166645771 1000.00
 Marley 123 wong@sample 0166645771 0.00
+Wong Zhi Zhen 123 wongzhizhen@gmail.com 0166645771 0.00
+Bing Bong 123 bingbong@sample 0166645772 0.00
