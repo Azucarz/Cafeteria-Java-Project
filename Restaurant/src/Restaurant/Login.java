@@ -129,7 +129,6 @@ public class Login extends UI implements ActionListener {
                     cui = new CustomerUI(u1);
 
                 } else if (u instanceof Manager) {
-                    //TODO Make Manager GUI
                     Manager u1 = (Manager) u;
                     mui = new ManagerUI();
                 }

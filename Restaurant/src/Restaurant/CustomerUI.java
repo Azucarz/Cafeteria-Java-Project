@@ -14,10 +14,13 @@ public class CustomerUI extends UI implements ActionListener {
     private JLabel title, balanceAmt;
     private Customer c;
     private DataIO data = new DataIO();
+    private JPanel foodMenu = new CustomerFoodMenu().getFoodPanel();
+    private JPanel drinkMenu = new CustomerDrinkMenu().getdrinkPanel();
 
     public CustomerUI(){}
 
     public CustomerUI(Customer c) {
+
         this.c = c;
         cui = new JFrame();
         buttons = new JPanel();
@@ -70,7 +73,6 @@ public class CustomerUI extends UI implements ActionListener {
         menu.setLayout(gridMenuContainer);
         menu.setBorder(BorderFactory.createEmptyBorder(80,80,80,80));
 
-
         buttons.add(profile);
         buttons.add(orders);
         buttons.add(cart);
@@ -91,9 +93,9 @@ public class CustomerUI extends UI implements ActionListener {
 
 
         cui.add(titleContainer,BorderLayout.PAGE_START);
+        cui.add(balanceContainer,BorderLayout.LINE_END);
         cui.add(buttons,BorderLayout.LINE_START);
         cui.add(menu,BorderLayout.CENTER);
-        cui.add(balanceContainer,BorderLayout.LINE_END);
         cui.setSize(1024,768);
         centerWindow(cui);
         cui.setVisible(true);
@@ -147,7 +149,45 @@ public class CustomerUI extends UI implements ActionListener {
         }
 
         else if (e.getSource() == profile) {
-            ProfileUI p = new ProfileUI(c);
+
+            if(profile.getText().equals("Back")){
+
+                if (foodMenu.getParent() != null){cui.remove(foodMenu);}
+                if (drinkMenu.getParent() != null){cui.remove(drinkMenu);}
+
+                cui.add(menu,BorderLayout.CENTER);
+                orders.setVisible(true);
+                cart.setVisible(true);
+                logout.setVisible(true);
+                profile.setText("Profile");
+                cui.repaint();
+
+            }else{
+                ProfileUI p = new ProfileUI(c);
+            }
+
+        }
+
+        else if (e.getSource() == food) {
+
+            cui.remove(menu);
+            orders.setVisible(false);
+            cart.setVisible(false);
+            logout.setVisible(false);
+            profile.setText("Back");
+            cui.add(foodMenu,BorderLayout.CENTER);
+            cui.repaint();
+        }
+
+        else if (e.getSource() == beverages) {
+            cui.remove(menu);
+            orders.setVisible(false);
+            cart.setVisible(false);
+            logout.setVisible(false);
+            profile.setText("Back");
+            cui.add(drinkMenu,BorderLayout.CENTER);
+            cui.repaint();
+
         }
 
     }
