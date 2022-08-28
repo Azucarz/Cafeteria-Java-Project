@@ -18,6 +18,9 @@ public class CustomerFoodMenu extends UI implements ActionListener {
 
     public CustomerFoodMenu(){
         grid = new GridLayout(Food.food.size()/3,3);
+        grid.setVgap(10);
+        grid.setHgap(10);
+
         foodPanel = new JPanel();
 
         subPanel = new JPanel();
@@ -28,12 +31,13 @@ public class CustomerFoodMenu extends UI implements ActionListener {
             double foodPrice = Food.food.get(i).getPrice();
 
             Button btn = new Button(foodName);
-            btn.setPreferredSize(new Dimension(250,250));
+            btn.setPreferredSize(new Dimension(200,200));
             btn.addActionListener(this);
             subPanel.add(btn);
         }
 
         scrollPanel = new JScrollPane(subPanel);
+        scrollPanel.setOpaque(false);
         scrollPanel.setPreferredSize(new Dimension(800,700));
         scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
         scrollPanel.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
