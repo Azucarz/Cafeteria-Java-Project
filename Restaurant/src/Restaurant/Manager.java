@@ -9,7 +9,7 @@ public class Manager extends User{
 
     public static ArrayList<Manager>  managers = new ArrayList<>();
 
-    public Manager(String name, String password, String email, String number) {
+    public Manager(String name, int password, String email, String number) {
         super(name, password, email, number);
     }
 

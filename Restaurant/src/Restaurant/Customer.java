@@ -7,7 +7,7 @@ public class Customer extends User{
     private double balance;
     public static ArrayList<Customer> customers = new ArrayList<Customer>();
 
-    public Customer(String name, String password, String email, String number, double balance, ArrayList<Cart> cart) {
+    public Customer(String name, int password, String email, String number, double balance, ArrayList<Cart> cart) {
         super(name, password, email, number);
         this.cart = cart;
         this.balance = balance;

@@ -1,8 +1,4 @@
-ChickenRice 12.50 1 
-Chicken 12.50 1 
-Rice 12.50 1 
-Zach 
-Cake 12.50 1 
-Cheese 12.50 1 
-Cookie 12.50 1 
-Bob 
+Chicken Rice 12.50 1
+Roti Canai 12.50 1
+Rice Bowl 12.50 1
+Zach Wong Zhi Zhen

@@ -159,7 +159,7 @@ public class ProfileUI extends UI implements ActionListener {
                         int confirmPass = JOptionPane.showConfirmDialog(frame, panel, "", JOptionPane.OK_CANCEL_OPTION);
                         //TODO Add Validation
                         if (pass1.getText().equals(pass2.getText())) {
-                            c.setPassword(pass1.getText());
+                            c.setPassword(Integer.parseInt(pass1.getText()));
                             data.update(c);
                             frame.dispose();
                             Login.cui.getCui().dispose();

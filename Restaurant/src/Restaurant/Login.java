@@ -44,10 +44,10 @@ public class Login extends UI implements ActionListener {
                 }
 
                 if (c != null) {
-                    checkPassword(c,user,password);
+                    checkPassword(c,user,Integer.parseInt(password));
                 }
                 else if (m != null) {
-                    checkPassword(m,user,password);
+                    checkPassword(m,user,Integer.parseInt(password));
                 }else{
                     message(x,"User Not Found");
                     textuser.setText("");
@@ -117,10 +117,10 @@ public class Login extends UI implements ActionListener {
                 "Student");
     }
 
-    private void checkPassword(User u,String user, String password){
+    private void checkPassword(User u,String user, int password){
 
         if (u.getName().equals(user)) {
-            if (u.getPassword().equals(password)) {
+            if (u.getPassword() == password) {
                 if (u instanceof Customer) {
                     textuser.setText("");
                     textpass.setText("");
