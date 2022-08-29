@@ -293,16 +293,26 @@ public class DataIO {
                 if (c.getName().equals(current.getName())) {
                     current.setName(c.getName());
                     current.setEmail(c.getEmail());
+                    current.setNumber(c.getNumber());
                     current.setBalance(c.getBalance());
                     current.setCart(c.getCart());
                 }
-                //TODO Exception Handling
             }
             write("customer");
 
         }
         else if (u instanceof Manager) {
-            //TODO Add Manager Update Logic
+            Manager m = (Manager) u;
+
+            for (int i = 0; i < Manager.managers.size(); i++) {
+                Manager current = Manager.managers.get(i);
+                if (m.getName().equals(current.getName())) {
+                    current.setName(m.getName());
+                    current.setEmail(m.getEmail());
+                    current.setNumber(m.getNumber());
+                }
+            }
+            write("manager");
         }
     }
 }
