@@ -107,6 +107,7 @@ public class ItemUI extends UI implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == confirm){
+
             frame.dispose();
         }
         else if (e.getSource() == addToCart) {

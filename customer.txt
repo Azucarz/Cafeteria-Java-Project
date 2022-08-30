@@ -1,4 +1,4 @@
-Zach 123 wong@sample.com 0166645771 2080.00
+Zach 123 wong@sample.com 0166645771 1798.40
 Bob 123 wong@sample 0166645771 1000.00
 Marley 123 wong@sample 0166645771 0.00
 Wong Zhi Zhen 123 wongzhizhen@gmail.com 0166645771 0.00
