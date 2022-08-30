@@ -100,6 +100,7 @@ public class Login extends UI implements ActionListener {
         x.pack();
         x.setResizable(false);
         centerWindow(x);
+        x.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         x.setVisible(true);
     }
 
