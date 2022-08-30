@@ -39,11 +39,11 @@ public class Login extends UI implements ActionListener {
 
                 if (c != null && m != null) {
                     if(c.getName().equals(m.getName())){
-                        sameName();
+                        sameName(c,m,user.trim(),Integer.parseInt(password));
                     }
                 }
 
-                if (c != null) {
+                else if (c != null) {
                     checkPassword(c,user.trim(),Integer.parseInt(password));
                 }
                 else if (m != null) {
@@ -105,16 +105,24 @@ public class Login extends UI implements ActionListener {
 
 
 
-    private void sameName(){
+    private void sameName(Customer c , Manager m, String user, int pass){
         String[] role = {"Manager","Student"};
         String s = (String)JOptionPane.showInputDialog(
                 x,
                 "Select User Type",
-                "Select User Type",
+                null,
                 JOptionPane.PLAIN_MESSAGE,
                 null,
                 role,
                 "Student");
+
+        if (s.equals("Student")){
+            checkPassword(c,user,pass);
+        }
+        else if(s.equals("Manager")){
+            checkPassword(m,user,pass);
+        }
+
     }
 
     private void checkPassword(User u,String user, int password){
@@ -129,6 +137,9 @@ public class Login extends UI implements ActionListener {
                     cui = new CustomerUI(u1);
 
                 } else if (u instanceof Manager) {
+                    textuser.setText("");
+                    textpass.setText("");
+                    x.setVisible(false);
                     Manager u1 = (Manager) u;
                     mui = new ManagerUI();
                 }
