@@ -88,40 +88,43 @@ public class Register extends UI implements ActionListener {
             String number = numberText.getText();
             String password = String.valueOf(passText.getPassword());
             String confirmPassword = String.valueOf(passTextConfirm.getPassword());
-
-            if (isAllFilled(name,email,number,password,confirmPassword)){
-                String message = "Please enter a valid";
-                if (nameExists(name) == true) {
-                    message(frame, "Username exists!");
-                    nameText.setText("");
-                    return;
-                }
-                if (isEmail(email) == false) {
-                    message += " [Email] ";
-                    emailText.setText("");
-                }
-                if (isPhone(number) == false) {
-                    message += " [Number] ";
-                    numberText.setText("");
-                }
-                if (isPassword(password) == false || isPassword(confirmPassword) == false) {
-                    message += " [Password] ";
-                    passText.setText("");
-                    passTextConfirm.setText("");
-                }
-                if (message.equals("Please enter a valid") == false) message(frame,message);
-                else{
-                    if(password.equals(confirmPassword) == false) message(frame,"Passwords do not match!");
-                    else{
-                        Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>()));
-                        data.write("customer");
-                        message(frame,"You are registered as a customer! 😃");
-                        frame.dispose();
+            if (terms.isSelected()){
+                if (isAllFilled(name,email,number,password,confirmPassword)){
+                    String message = "Please enter a valid";
+                    if (nameExists(name) == true) {
+                        message(frame, "Username exists!");
+                        nameText.setText("");
+                        return;
                     }
-                }
+                    if (isEmail(email) == false) {
+                        message += " [Email] ";
+                        emailText.setText("");
+                    }
+                    if (isPhone(number) == false) {
+                        message += " [Number] ";
+                        numberText.setText("");
+                    }
+                    if (isPassword(password) == false || isPassword(confirmPassword) == false) {
+                        message += " [Password] ";
+                        passText.setText("");
+                        passTextConfirm.setText("");
+                    }
+                    if (message.equals("Please enter a valid") == false) message(frame,message);
+                    else{
+                        if(password.equals(confirmPassword) == false) message(frame,"Passwords do not match!");
+                        else{
+                            Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>()));
+                            data.write("customer");
+                            message(frame,"You are registered as a customer! 😃");
+                            frame.dispose();
+                        }
+                    }
 
+                }else {
+                    message(frame,"Please fill in all the fields!");
+                }
             }else {
-                message(frame,"Please fill in all the fields!");
+                message(frame,"Please accept the Terms & Conditions");
             }
         }
     }

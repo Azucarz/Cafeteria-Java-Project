@@ -100,6 +100,7 @@ public class CustomerUI extends UI implements ActionListener {
         cui.add(menu,BorderLayout.CENTER);
         cui.setSize(1024,768);
         centerWindow(cui);
+        cui.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         cui.setVisible(true);
 
     }
