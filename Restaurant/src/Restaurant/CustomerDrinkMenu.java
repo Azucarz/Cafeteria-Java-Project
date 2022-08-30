@@ -10,16 +10,16 @@ public class CustomerDrinkMenu extends UI implements ActionListener {
     private JScrollPane scrollPanel;
     private JPanel subPanel, drinkPanel;
     private GridLayout grid;
+    private Customer c;
 
 
     public JPanel getdrinkPanel() {
         return drinkPanel;
     }
 
-    public CustomerDrinkMenu(){
+    public CustomerDrinkMenu(Customer c){
+        this.c = c;
         grid = new GridLayout(Drink.drink.size()/3,3);
-        grid.setHgap(10);
-        grid.setVgap(10);
 
 
         drinkPanel = new JPanel();
@@ -31,7 +31,7 @@ public class CustomerDrinkMenu extends UI implements ActionListener {
             double foodPrice = Drink.drink.get(i).getPrice();
 
             Button btn = new Button(foodName);
-            btn.setPreferredSize(new Dimension(200,200));
+            btn.setPreferredSize(new Dimension(180,180));
             btn.addActionListener(this);
             subPanel.add(btn);
         }
@@ -57,8 +57,7 @@ public class CustomerDrinkMenu extends UI implements ActionListener {
         if (event instanceof Button){btn = (Button) event;}
         if (btn != null){
             btnText = btn.getLabel();
-            System.out.println(btnText);
-            //TODO Dialog to View Item
+            ItemUI item = new ItemUI(c,btnText);
         }
 
 

@@ -10,18 +10,20 @@ public class CustomerUI extends UI implements ActionListener {
     private static JFrame cui;
     private JPanel buttons, menu, balance, balanceContainer, titleContainer;
     private GridLayout gridSideContainer, gridMenuContainer;
-    private JButton profile, orders, cart, logout,food, beverages, reload;
+    private Button profile, orders, cart, logout,food, beverages, reload;
     private JLabel title, balanceAmt;
     private Customer c;
     private DataIO data = new DataIO();
-    private JPanel foodMenu = new CustomerFoodMenu().getFoodPanel();
-    private JPanel drinkMenu = new CustomerDrinkMenu().getdrinkPanel();
+    private JPanel foodMenu;
+    private JPanel drinkMenu;
 
     public CustomerUI(){}
 
     public CustomerUI(Customer c) {
-
         this.c = c;
+        foodMenu = new CustomerFoodMenu(c).getFoodPanel();
+        drinkMenu = new CustomerDrinkMenu(c).getdrinkPanel();
+
         cui = new JFrame();
         buttons = new JPanel();
         menu = new JPanel();
@@ -49,22 +51,21 @@ public class CustomerUI extends UI implements ActionListener {
         gridMenuContainer.setVgap(30);
 
 
-        profile = new JButton("Profile");
-        orders = new JButton("Orders");
-        cart = new JButton("Cart");
-        logout = new JButton("Logout");
+        profile = new Button("Profile");
+        orders = new Button("Orders");
+        cart = new Button("Cart");
+        logout = new Button("Logout");
 
 
-        food = new JButton("Food");
-        beverages = new JButton("Beverages");
+        food = new Button("Food");
+        beverages = new Button("Beverages");
 
-        reload = new JButton("Reload");
+        reload = new Button("Reload");
         balanceAmt = new JLabel("RM " + c.getBalance());
         balance.setLayout(new BoxLayout(balance,BoxLayout.Y_AXIS));
         balance.add(balanceAmt);
         balance.add(reload);
         balanceAmt.setAlignmentX(Component.CENTER_ALIGNMENT);
-        reload.setAlignmentX(Component.CENTER_ALIGNMENT);
         balanceContainer.add(balance);
 
         menu.add(food);
@@ -124,7 +125,7 @@ public class CustomerUI extends UI implements ActionListener {
             if(i == JOptionPane.YES_OPTION) {
                 customer.increaseBalance(Double.parseDouble(amt));
                 label.setText("RM " + customer.getBalance());
-                data.update(customer);
+                data.write("customer");
                 amt = null;
             }
             else if(i == JOptionPane.NO_OPTION){reload(this.c,this.balanceAmt,this.cui);}
@@ -149,16 +150,17 @@ public class CustomerUI extends UI implements ActionListener {
 
         else if (e.getSource() == profile) {
 
-            if(profile.getText().equals("Back")){
+            if(profile.getLabel().equals("Back")){
 
                 if (foodMenu.getParent() != null){cui.remove(foodMenu);}
-                if (drinkMenu.getParent() != null){cui.remove(drinkMenu);}
+                else if (drinkMenu.getParent() != null){cui.remove(drinkMenu);}
 
                 cui.add(menu,BorderLayout.CENTER);
                 orders.setVisible(true);
                 cart.setVisible(true);
                 logout.setVisible(true);
-                profile.setText("Profile");
+                profile.setLabel("Profile");
+                cui.revalidate();
                 cui.repaint();
 
             }else{
@@ -173,8 +175,9 @@ public class CustomerUI extends UI implements ActionListener {
             orders.setVisible(false);
             cart.setVisible(false);
             logout.setVisible(false);
-            profile.setText("Back");
+            profile.setLabel("Back");
             cui.add(foodMenu,BorderLayout.CENTER);
+            cui.revalidate();
             cui.repaint();
         }
 
@@ -183,8 +186,9 @@ public class CustomerUI extends UI implements ActionListener {
             orders.setVisible(false);
             cart.setVisible(false);
             logout.setVisible(false);
-            profile.setText("Back");
+            profile.setLabel("Back");
             cui.add(drinkMenu,BorderLayout.CENTER);
+            cui.revalidate();
             cui.repaint();
 
         }

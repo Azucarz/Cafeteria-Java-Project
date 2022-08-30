@@ -102,10 +102,11 @@ public class ProfileUI extends UI implements ActionListener {
         if(e.getSource() == edit){
             if (edit.getText().equals("Save")){
 
-                c.setName(name.getText());
-                c.setEmail(email.getText());
-                c.setNumber(number.getText());
-                data.update(c);
+                c.setName(name.getText().trim());
+                System.out.println(c.getName());
+                c.setEmail(email.getText().trim());
+                c.setNumber(number.getText().trim());
+                data.write("customer");
 
                 JOptionPane.showMessageDialog(frame,"Your details have been changed! Logging out...");
 
@@ -160,7 +161,7 @@ public class ProfileUI extends UI implements ActionListener {
                         //TODO Add Validation
                         if (pass1.getText().equals(pass2.getText())) {
                             c.setPassword(Integer.parseInt(pass1.getText()));
-                            data.update(c);
+                            data.write("customer");
                             frame.dispose();
                             Login.cui.getCui().dispose();
                             Login.getLogin().setVisible(true);

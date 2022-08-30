@@ -69,7 +69,7 @@ public class DataIO {
                 for (int i = 0; i < Customer.customers.size(); i++) {
                     Customer c = Customer.customers.get(i);
 
-                    if (!(c.getCart().size() == 0)) {
+                    if (c.getCart().size() > 0) {
                         for (int j = 0; j < c.getCart().size(); j++) {
                             Cart current = c.getCart().get(j);
 
@@ -127,7 +127,6 @@ public class DataIO {
                 int cPassword = 0;
                 double balance = 0;
 
-                ArrayList<Cart> cart = new ArrayList<Cart>();
                 ArrayList<Customer> customers = new ArrayList<Customer>();
 
                 while (y.hasNext()) {
@@ -138,7 +137,7 @@ public class DataIO {
                         cEmail = y.next();
                         cNumber = y.next();
                         balance = Double.parseDouble(y.next());
-                        customers.add(new Customer(cName.trim(), cPassword, cEmail, cNumber, balance, cart));
+                        customers.add(new Customer(cName.trim(), cPassword, cEmail, cNumber, balance, new ArrayList<Cart>()));
 
                         cName = "";
 
@@ -282,39 +281,6 @@ public class DataIO {
 //----------------------------------------------------------------------------------------------------------------------
     }
 
-
-
-    public void update(User u){
-        if(u instanceof Customer){
-            Customer c = (Customer) u;
-
-            for (int i = 0; i < Customer.customers.size(); i++) {
-                Customer current = Customer.customers.get(i);
-                if (c.getName().equals(current.getName())) {
-                    current.setName(c.getName());
-                    current.setEmail(c.getEmail());
-                    current.setNumber(c.getNumber());
-                    current.setBalance(c.getBalance());
-                    current.setCart(c.getCart());
-                }
-            }
-            write("customer");
-
-        }
-        else if (u instanceof Manager) {
-            Manager m = (Manager) u;
-
-            for (int i = 0; i < Manager.managers.size(); i++) {
-                Manager current = Manager.managers.get(i);
-                if (m.getName().equals(current.getName())) {
-                    current.setName(m.getName());
-                    current.setEmail(m.getEmail());
-                    current.setNumber(m.getNumber());
-                }
-            }
-            write("manager");
-        }
-    }
 }
 
 
