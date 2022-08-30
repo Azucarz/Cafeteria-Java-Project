@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class ProfileUI extends UI implements ActionListener {
     private JFrame frame;
@@ -102,17 +103,39 @@ public class ProfileUI extends UI implements ActionListener {
         if(e.getSource() == edit){
             if (edit.getText().equals("Save")){
 
-                c.setName(name.getText().trim());
-                System.out.println(c.getName());
-                c.setEmail(email.getText().trim());
-                c.setNumber(number.getText().trim());
-                data.write("customer");
+                if (isAllFilled(name.getText(),email.getText(),number.getText())){
+                    String message = "Please enter a valid";
+                    if (nameExists(name.getText()) == true) {
+                        if (c.getName().equals(name.getText())){}
+                        else{
+                            message(frame, "Username exists!");
+                            name.setText("");
+                        }
+                    }
+                    if (isEmail(email.getText()) == false) {
+                        message += " [Email] ";
+                        email.setText("");
+                    }
+                    if (isPhone(number.getText()) == false) {
+                        message += " [Number] ";
+                        number.setText("");
+                    }
 
-                JOptionPane.showMessageDialog(frame,"Your details have been changed! Logging out...");
+                    if (message.equals("Please enter a valid") == false) message(frame,message);
+                    else{
+                        c.setName(name.getText().trim());
+                        c.setEmail(email.getText().trim());
+                        c.setNumber(number.getText().trim());
+                        data.write("customer");
 
-                Login.getLogin().setVisible(true);
-                Login.cui.getCui().dispose();
-                frame.dispose();
+                        JOptionPane.showMessageDialog(frame,"Your details have been changed! Logging out...");
+
+                        Login.getLogin().setVisible(true);
+                        Login.cui.getCui().dispose();
+                        frame.dispose();
+                    }
+                }else {message(frame,"Please fill in all the fields!");}
+
             }
             name.setEditable(true);
             email.setEditable(true);
@@ -121,6 +144,7 @@ public class ProfileUI extends UI implements ActionListener {
             balanceContainer.setVisible(false);
             changePassword.setText("Cancel");
             edit.setText("Save");
+
         }
         else if (e.getSource() == changePassword) {
             if (changePassword.getText().equals("Cancel")) {
@@ -134,7 +158,7 @@ public class ProfileUI extends UI implements ActionListener {
             }else {
                 String cpass = JOptionPane.showInputDialog("Please Enter Your Current Password");
                 if (cpass != null) {
-                    if (cpass.equals(c.getPassword())) {
+                    if (cpass.equals(String.valueOf(c.getPassword()))){
 
                         JPanel panel = new JPanel();
                         JPanel pass1Container = new JPanel();
@@ -158,16 +182,29 @@ public class ProfileUI extends UI implements ActionListener {
                         panel.add(pass2Container);
 
                         int confirmPass = JOptionPane.showConfirmDialog(frame, panel, "", JOptionPane.OK_CANCEL_OPTION);
-                        //TODO Add Validation
+
                         if (pass1.getText().equals(pass2.getText())) {
-                            c.setPassword(Integer.parseInt(pass1.getText()));
-                            data.write("customer");
-                            frame.dispose();
-                            Login.cui.getCui().dispose();
-                            Login.getLogin().setVisible(true);
+                            if(isPassword(pass1.getText())){
+                                c.setPassword(Integer.parseInt(pass1.getText()));
+                                data.write("customer");
+
+                                JOptionPane.showMessageDialog(frame,"Your details have been changed! Logging out...");
+
+                                frame.dispose();
+                                Login.cui.getCui().dispose();
+                                Login.getLogin().setVisible(true);
+
+                            }else {
+                                message(frame,"Please enter a valid password.");
+                            }
+
+                        }else {
+                            message(frame,"Passwords do not match!");
                         }
 
 
+                    }else{
+                        message(frame, "Incorrect Password!");
                     }
 
                 }
