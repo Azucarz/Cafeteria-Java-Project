@@ -180,7 +180,6 @@ public class ProfileUI extends UI implements ActionListener {
                     Login.cui.reload(this.c,this.balance,this.frame);
                     Login.cui.getBalanceAmt().setText(this.balance.getText());
                 } catch (Exception ex){
-                    System.out.println(ex);
                     JOptionPane.showMessageDialog(frame,"Please enter a valid reload amount");
                 }
         }

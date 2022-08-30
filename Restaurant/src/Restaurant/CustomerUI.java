@@ -16,13 +16,12 @@ public class CustomerUI extends UI implements ActionListener {
     private DataIO data = new DataIO();
     private JPanel foodMenu;
     private JPanel drinkMenu;
+    private CartUI cartPanel;
 
     public CustomerUI(){}
 
     public CustomerUI(Customer c) {
         this.c = c;
-        foodMenu = new CustomerFoodMenu(c).getFoodPanel();
-        drinkMenu = new CustomerDrinkMenu(c).getdrinkPanel();
 
         cui = new JFrame();
         buttons = new JPanel();
@@ -91,6 +90,9 @@ public class CustomerUI extends UI implements ActionListener {
         food.addActionListener(this);
         beverages.addActionListener(this);
 
+        this.foodMenu = new CustomerFoodMenu(c).getFoodPanel();
+        this.drinkMenu = new CustomerDrinkMenu(c).getdrinkPanel();
+        this.cartPanel = new CartUI(c);
 
         cui.add(titleContainer,BorderLayout.PAGE_START);
         cui.add(balanceContainer,BorderLayout.LINE_END);
@@ -154,6 +156,7 @@ public class CustomerUI extends UI implements ActionListener {
 
                 if (foodMenu.getParent() != null){cui.remove(foodMenu);}
                 else if (drinkMenu.getParent() != null){cui.remove(drinkMenu);}
+                else if (cartPanel.getCartPanel().getParent() != null) {cui.remove(cartPanel.getCartPanel());}
 
                 cui.add(menu,BorderLayout.CENTER);
                 orders.setVisible(true);
@@ -191,6 +194,18 @@ public class CustomerUI extends UI implements ActionListener {
             cui.revalidate();
             cui.repaint();
 
+        }
+
+        else if (e.getSource() == cart) {
+            cui.remove(menu);
+            orders.setVisible(false);
+            cart.setVisible(false);
+            logout.setVisible(false);
+            profile.setLabel("Back");
+            cartPanel.draw();
+            cui.add(cartPanel.getCartPanel(),BorderLayout.CENTER);
+            cui.revalidate();
+            cui.repaint();
         }
 
     }
