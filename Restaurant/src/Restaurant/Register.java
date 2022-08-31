@@ -113,7 +113,7 @@ public class Register extends UI implements ActionListener {
                     else{
                         if(password.equals(confirmPassword) == false) message(frame,"Passwords do not match!");
                         else{
-                            Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>()));
+                            Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>(),new ArrayList<>()));
                             data.write("customer");
                             message(frame,"You are registered as a customer! 😃");
                             frame.dispose();

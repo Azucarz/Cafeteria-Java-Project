@@ -4,6 +4,7 @@ import java.awt.geom.Arc2D;
 import java.io.*;
 import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Formatter;
 import java.util.Scanner;
@@ -85,6 +86,48 @@ public class DataIO {
                 break;
 
 
+
+//      Write Orders
+//----------------------------------------------------------------------------------------------------------------------
+            case "orders":
+                for (int i = 0; i < Customer.customers.size(); i++) {
+                    Customer c = Customer.customers.get(i);
+                    if (c.getOrders().size() > 0){
+                        for (int j = 0; j < c.getOrders().size(); j++) {
+                            Order currentOrder = c.getOrders().get(j);
+
+                            String orderID = currentOrder.getOrderID();
+                            String name = c.getName();
+                            double total = currentOrder.getTotal();
+                            LocalDateTime dateordered = currentOrder.getDateOrdered();
+                            String orderStatus = currentOrder.getOrderStatus();
+                            String pendingOrder = currentOrder.getPendingOrder();
+
+                            x.format("%s %n", orderID);
+                            x.format("%.2f %n", total);
+                            x.format("%s %n", dateordered);
+                            x.format("%s %n", orderStatus);
+                            x.format("%s %n", pendingOrder);
+
+                            for (int k = 0; k < currentOrder.getOrderList().size(); k++) {
+                                Cart currentItem = currentOrder.getOrderList().get(k);
+                                String currentItemName = currentItem.getItem();
+                                int currentItemAmt = currentItem.getAmt();
+                                double currentItemPrice = currentItem.getPrice();
+
+                                x.format("%s %.2f %d %n", currentItemName, currentItemPrice, currentItemAmt);
+                            }
+
+                            x.format("%s", name);
+
+                        }
+                    }
+
+                }
+                closeFormatter();
+                break;
+
+
 //      Write Food
 //----------------------------------------------------------------------------------------------------------------------
             case "food":
@@ -137,7 +180,7 @@ public class DataIO {
                         cEmail = y.next();
                         cNumber = y.next();
                         balance = Double.parseDouble(y.next());
-                        customers.add(new Customer(cName.trim(), cPassword, cEmail, cNumber, balance, new ArrayList<Cart>()));
+                        customers.add(new Customer(cName.trim(), cPassword, cEmail, cNumber, balance, new ArrayList<Cart>(), new ArrayList<>()));
 
                         cName = "";
 
@@ -255,6 +298,7 @@ public class DataIO {
                     }
 
                 }
+                break;
 
 
 
@@ -277,6 +321,78 @@ public class DataIO {
                     }
 
                 }
+                break;
+            
+            case "orders":
+                ArrayList<Cart> orderList = new ArrayList<>();
+                ArrayList customerNames = new ArrayList<>();
+                String checkName;
+                Scanner orderItemScanner;
+
+
+                for (int i = 0; i < Customer.customers.size(); i++) {
+                    customerNames.add(Customer.customers.get(i).getName());
+                }
+
+                while(y.hasNextLine()){
+                    String orderID = y.nextLine().trim();
+                    double total = Double.parseDouble(y.nextLine().trim());
+                    LocalDateTime dateOrdered = LocalDateTime.parse(y.nextLine().trim());
+                    String orderStatus = y.nextLine().trim();
+                    String pendingOrder = y.nextLine().trim();
+
+                    System.out.println(orderID);
+                    System.out.println(total);
+                    System.out.println(dateOrdered);
+                    System.out.println(orderStatus);
+                    System.out.println(pendingOrder);
+
+                    checkName = y.nextLine();
+
+
+                    while(customerNames.contains(checkName.trim()) == false){
+                        orderItemScanner = new Scanner(checkName);
+                        String cartItem = "";
+                        String cartTmp = "";
+                        double cartPrice = 0;
+                        int cartAmt = 0;
+
+                        while (orderItemScanner.hasNext()){
+                            cartTmp = orderItemScanner.next();
+                            try{
+                                cartPrice = Double.parseDouble(cartTmp);
+                                cartAmt = Integer.parseInt(orderItemScanner.next());
+                                System.out.println(cartItem.trim());
+                                System.out.println(cartPrice);
+                                System.out.println(cartAmt);
+                                orderList.add(new Cart(cartItem.trim(),cartPrice,cartAmt));
+                                checkName = y.nextLine();
+                                cartItem = "";
+                                break;
+
+                            }catch (NumberFormatException e){
+                                cartItem += cartTmp + " ";
+                            }
+                        }
+                    }
+
+                    if (customerNames.contains(checkName.trim())){
+                        for (int i = 0; i < Customer.customers.size(); i++) {
+
+                            Customer current = Customer.customers.get(i);
+
+                            if (current.getName().equals(checkName.trim())) {
+
+                                current.getOrders().add(new Order(orderID,orderStatus,pendingOrder,checkName.trim(),orderList,total,dateOrdered));
+                                orderList = new ArrayList<>();
+                            }
+                        }
+                    }
+
+                }
+
+
+
         }
 //----------------------------------------------------------------------------------------------------------------------
     }

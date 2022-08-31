@@ -127,6 +127,7 @@ public class ProfileUI extends UI implements ActionListener {
                         c.setEmail(email.getText().trim());
                         c.setNumber(number.getText().trim());
                         data.write("customer");
+                        data.write("orders");
 
                         JOptionPane.showMessageDialog(frame,"Your details have been changed! Logging out...");
 

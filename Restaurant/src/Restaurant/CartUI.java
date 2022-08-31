@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.text.DecimalFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class CartUI extends UI implements ActionListener {
@@ -176,11 +177,15 @@ public class CartUI extends UI implements ActionListener {
 
                 else{
                     c.setBalance(c.getBalance() - total);
+                    ArrayList<Cart> tmpCart = customerCart;
+
+                    c.getOrders().add(new Order(c.getName(),tmpCart,total, LocalDateTime.now()));
+                    data.write("orders");
+
                     customerCart.removeAll(customerCart);
                     data.write("customer");
 
                     Login.cui.getBalanceAmt().setText("RM " +  df.format(c.getBalance()));
-
                     draw();
                     message(Login.cui.getCui(),"Your order has been placed!");
                 }

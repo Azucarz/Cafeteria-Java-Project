@@ -9,7 +9,9 @@ public class Main {
         data.read("manager");
         data.read("food");
         data.read("drink");
+        data.read("orders");
 
+        System.out.println(Customer.customers.get(0).getOrders().size());
 
 
     }
