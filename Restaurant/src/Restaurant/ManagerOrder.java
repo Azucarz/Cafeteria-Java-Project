@@ -58,7 +58,7 @@ public class ManagerOrder extends javax.swing.JFrame {
 
 
     @SuppressWarnings("unchecked")
-    
+
     private void initComponents() {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();

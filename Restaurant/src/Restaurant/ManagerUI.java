@@ -168,8 +168,8 @@ public class ManagerUI extends JFrame {
     }
 
     private void jButton1ActionPerformed(ActionEvent evt) {
-        //  Order order = new Order();
-        //   order.setVisible(true);
+       ManagerOrder order = new  ManagerOrder ();
+         order.setVisible(true);
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {
