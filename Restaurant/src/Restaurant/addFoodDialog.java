@@ -1,4 +1,4 @@
-package Restaurant.Dash.DashMan;
+package Restaurant;
 
 import Restaurant.DataIO;
 import Restaurant.Drink;
