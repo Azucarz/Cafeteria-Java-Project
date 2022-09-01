@@ -5,6 +5,7 @@ import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ public class Report extends UI{
     private JTextArea textArea;
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private HashMap<String, Integer> hashMap = new HashMap<String, Integer>();
 
 
 
@@ -27,8 +29,8 @@ public class Report extends UI{
         filterOrders();
         getRevenue();
         getTax();
-        getItems();
         genFamous();
+
 
         frame = new JFrame();
         data += "Report Generated for " + LocalDateTime.now().format(formatter) + "\n";
@@ -49,7 +51,12 @@ public class Report extends UI{
         data += "\n";
         data += "Number of items sold\n";
         data += "*******************************************************************************\n";
-        data += counterMap.entrySet();
+        data += "\n";
+        hashMap.forEach((key, value) -> {
+            data += key + "\t" + value + "\n";
+        });
+        data += "\n";
+        data += "*******************************************************************************\n";
 
 
         textArea = new JTextArea();
@@ -87,17 +94,18 @@ public class Report extends UI{
         tax = revenue * CartUI.tax;
     }
 
-    private void getItems(){
+
+
+    private void genFamous(){
         for (int i = 0; i < realPurchases.size(); i++) {
             Order currentOrder = realPurchases.get(i);
 
             for (int j = 0; j < currentOrder.getOrderList().size(); j++) {
-                item.add(currentOrder.getOrderList().get(j).getItem());
+                Cart currentCart = currentOrder.getOrderList().get(j);
+                hashMap.put(currentCart.getItem(),currentCart.getAmt());
             }
-        }
-    }
 
-    private void genFamous(){
-        counterMap = item.stream().collect(Collectors.groupingBy(e -> e.toString(),Collectors.counting()));
+        }
+
     }
 }
