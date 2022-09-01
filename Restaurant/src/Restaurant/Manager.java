@@ -15,15 +15,10 @@ public class Manager extends User{
 
     public static void setManagers(ArrayList<Manager> managers) {Manager.managers = managers;}
 
-    public void addCustomer(){}
-
-    public void removeCustomer(){}
 
     public void search(Manager manager){}
 
     public void search(Customer customer){}
-
-    public void getManagers(){}
 
     public static Manager getCustomer(String name){
 

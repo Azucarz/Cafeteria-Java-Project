@@ -174,8 +174,7 @@ public class ManagerUI extends JFrame {
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {
-        //  Menu menu = new Menu();
-        //  menu.setVisible(true);
+        ManagerMenu menu = new ManagerMenu();
     }
 
     private void jButton4ActionPerformed(ActionEvent evt) {

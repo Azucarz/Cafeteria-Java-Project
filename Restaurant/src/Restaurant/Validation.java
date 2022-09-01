@@ -30,6 +30,15 @@ public abstract class Validation {
         }
     }
 
+    public static boolean isPrice(String price){
+        try{
+            Double.parseDouble(price);
+            return true;
+        }catch (NumberFormatException e){
+            return false;
+        }
+    }
+
     public static boolean isAllFilled(String ...textFields){
         boolean isFilled = true;
         for (int i = 0; i < textFields.length; i++) {
