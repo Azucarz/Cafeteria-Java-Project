@@ -118,7 +118,7 @@ public class DataIO {
                                 x.format("%s %.2f %d %n", currentItemName, currentItemPrice, currentItemAmt);
                             }
 
-                            x.format("%s", name);
+                            x.format("%s%n", name);
 
                         }
                     }
@@ -341,12 +341,6 @@ public class DataIO {
                     String orderStatus = y.nextLine().trim();
                     String pendingOrder = y.nextLine().trim();
 
-                    System.out.println(orderID);
-                    System.out.println(total);
-                    System.out.println(dateOrdered);
-                    System.out.println(orderStatus);
-                    System.out.println(pendingOrder);
-
                     checkName = y.nextLine();
 
 
@@ -362,9 +356,6 @@ public class DataIO {
                             try{
                                 cartPrice = Double.parseDouble(cartTmp);
                                 cartAmt = Integer.parseInt(orderItemScanner.next());
-                                System.out.println(cartItem.trim());
-                                System.out.println(cartPrice);
-                                System.out.println(cartAmt);
                                 orderList.add(new Cart(cartItem.trim(),cartPrice,cartAmt));
                                 checkName = y.nextLine();
                                 cartItem = "";
@@ -384,6 +375,7 @@ public class DataIO {
                             if (current.getName().equals(checkName.trim())) {
 
                                 current.getOrders().add(new Order(orderID,orderStatus,pendingOrder,checkName.trim(),orderList,total,dateOrdered));
+                                Order.orders.add(new Order(orderID,orderStatus,pendingOrder,checkName.trim(),orderList,total,dateOrdered));
                                 orderList = new ArrayList<>();
                             }
                         }

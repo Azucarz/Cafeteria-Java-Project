@@ -11,7 +11,8 @@ public class Main {
         data.read("drink");
         data.read("orders");
 
-        System.out.println(Customer.customers.get(0).getOrders().size());
+
+        CustomerOrderUI y = new CustomerOrderUI(Customer.customers.get(0));
 
 
     }

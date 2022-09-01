@@ -1,3 +1,4 @@
-Zach Wong 123 wong@mail.com 0166645771 397.30
+Zach Wong 123 wong@mail.com 0166645771 516.10
 Dharshan 123 dharshan@mail.com 0123456789 2000.00
 Kau Guan Kiat 123 kauguankiat@mail.com 0123456789 0.00
+Sample 123 sample@mail.com 0123456789 947.20

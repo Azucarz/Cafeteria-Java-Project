@@ -17,6 +17,7 @@ public class CustomerUI extends UI implements ActionListener {
     private JPanel foodMenu;
     private JPanel drinkMenu;
     private CartUI cartPanel;
+    private static CustomerOrderUI ordersPanel;
 
     public CustomerUI(){}
 
@@ -93,6 +94,7 @@ public class CustomerUI extends UI implements ActionListener {
         this.foodMenu = new CustomerFoodMenu(c).getFoodPanel();
         this.drinkMenu = new CustomerDrinkMenu(c).getdrinkPanel();
         this.cartPanel = new CartUI(c);
+        this.ordersPanel = new CustomerOrderUI(c);
 
         cui.add(titleContainer,BorderLayout.PAGE_START);
         cui.add(balanceContainer,BorderLayout.LINE_END);
@@ -106,6 +108,8 @@ public class CustomerUI extends UI implements ActionListener {
     }
 
     public JFrame getCui() {return cui;}
+
+    public CustomerOrderUI getOrdersPanel(){return ordersPanel;}
 
     public JLabel getBalanceAmt() {return balanceAmt;}
 
@@ -158,6 +162,7 @@ public class CustomerUI extends UI implements ActionListener {
                 if (foodMenu.getParent() != null){cui.remove(foodMenu);}
                 else if (drinkMenu.getParent() != null){cui.remove(drinkMenu);}
                 else if (cartPanel.getCartPanel().getParent() != null) {cui.remove(cartPanel.getCartPanel());}
+                else if (ordersPanel.getMainPanel().getParent() != null){cui.remove(ordersPanel.getMainPanel());}
 
                 cui.add(menu,BorderLayout.CENTER);
                 orders.setVisible(true);
@@ -205,6 +210,19 @@ public class CustomerUI extends UI implements ActionListener {
             profile.setLabel("Back");
             cartPanel.draw();
             cui.add(cartPanel.getCartPanel(),BorderLayout.CENTER);
+            cui.revalidate();
+            cui.repaint();
+        }
+
+        else if (e.getSource() == orders) {
+            cui.remove(menu);
+            orders.setVisible(false);
+            cart.setVisible(false);
+            logout.setVisible(false);
+            profile.setLabel("Back");
+            cartPanel.draw();
+            ordersPanel.draw();
+            cui.add(ordersPanel.getMainPanel(),BorderLayout.CENTER);
             cui.revalidate();
             cui.repaint();
         }
