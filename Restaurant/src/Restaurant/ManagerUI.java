@@ -1,4 +1,25 @@
 package Restaurant;
+//|Menu|
+//        ------
+//                Food | Drinks |
+//
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//|                                 |
+//
+//| Add | Remove | Edit |
+//
+//Add{Dialog {Name,Price} edit (food,food,food) write DataIO
+// Remove{click item | remove | confirm | loop array to delete .getName}
+//Edit {click item | edit | dialog | }}
+
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -174,8 +195,7 @@ public class ManagerUI extends JFrame {
     }
 
     private void jButton2ActionPerformed(ActionEvent evt) {
-        //  Menu menu = new Menu();
-        //  menu.setVisible(true);
+        ManagerMenu menu =new ManagerMenu();
     }
 
     private void jButton4ActionPerformed(ActionEvent evt) {
@@ -196,9 +216,11 @@ public class ManagerUI extends JFrame {
     }
 
     private void jButton9ActionPerformed(ActionEvent evt) {
-        //  CustomerSearch customerSearch = new CustomerSearch();
-        //   customerSearch.setVisible(true);
+          CustomerSearch customerSearch = new CustomerSearch();
+          customerSearch.setVisible(true);
     }
+
+
 
     private void jButton10ActionPerformed(ActionEvent evt) {
         //   ManagerSearch managerSearch = new ManagerSearch();

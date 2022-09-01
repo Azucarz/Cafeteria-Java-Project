@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class ManagerOrder extends javax.swing.JFrame {
+    private DefaultTableModel tableModel;
 
     private DataIO data = new DataIO();
 
@@ -19,6 +20,22 @@ public class ManagerOrder extends javax.swing.JFrame {
 //        data.read("orders");
 
         initComponents();
+
+        String col[] = {"Order ID","Order Name","Order Status","Pending Order"};
+        tableModel = new DefaultTableModel(col, 0);
+        jTable2 = new JTable(tableModel);
+        tableModel.getDataVector().removeAllElements();
+        jTable2.clearSelection();
+
+        for (int i = 0; i < Order.orders.size(); i++) {
+
+            Order current = Order.orders.get(i);
+
+            Object[] data = {current.getOrderID(),current.getName(),current.getOrderStatus(), current.getPendingOrder()};
+
+            tableModel.addRow(data);
+        }
+
 
 
 //        TODO CHANGE THIS
@@ -68,7 +85,7 @@ public class ManagerOrder extends javax.swing.JFrame {
         jSplitPane1 = new javax.swing.JSplitPane();
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
@@ -92,11 +109,11 @@ public class ManagerOrder extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
 
-        jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTable2MouseClicked(evt);
-            }
-        });
+      //  jTable2.addMouseListener(new java.awt.event.MouseAdapter() {
+     //       public void mouseClicked(java.awt.event.MouseEvent evt) {
+     //           jTable2MouseClicked(evt);
+    //       }
+     //   });
 
 
 //        TODO OVERRIDED
@@ -228,7 +245,7 @@ public class ManagerOrder extends javax.swing.JFrame {
 //        ));
 
 
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable2);
 
         jButton1.setText("Done");
 
@@ -317,6 +334,7 @@ public class ManagerOrder extends javax.swing.JFrame {
         );
 
         pack();
+        this.setVisible(true);
     }// </editor-fold>
 
 
@@ -432,6 +450,7 @@ public class ManagerOrder extends javax.swing.JFrame {
 
 
     public static void main(String args[]) {
+
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
