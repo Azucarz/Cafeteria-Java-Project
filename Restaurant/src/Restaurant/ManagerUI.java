@@ -73,7 +73,7 @@ public class ManagerUI extends UI implements ActionListener {
         } else if (e.getSource() == orderButton) {
             ManagerOrder order = new ManagerOrder();
         } else if (e.getSource() == accountsButton) {
-
+            ManagerCustomer mc = new ManagerCustomer();
         } else if (e.getSource() == reportButton) {
             Report r = new Report();
         } else if (e.getSource() == feedbackButton) {

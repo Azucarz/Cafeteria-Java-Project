@@ -20,7 +20,7 @@ public class Manager extends User{
 
     public void search(Customer customer){}
 
-    public static Manager getCustomer(String name){
+    public static Manager getManager(String name){
 
         for (int i = 0; i < managers.size(); i++) {
             if(managers.get(i).getName().matches(name)){

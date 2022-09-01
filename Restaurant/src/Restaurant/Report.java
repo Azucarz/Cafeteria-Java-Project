@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class Report {
+public class Report extends UI{
     private ArrayList<Order> realPurchases = new ArrayList<>();
     private double revenue;
     private double tax;
@@ -39,7 +39,7 @@ public class Report {
         data +=  "Tax:\t\t\t\t" + df.format(tax) + "\n";
         data += "*******************************************************************************\n";
         data += "\n";
-        data += "Number of Customers";
+        data += "Number of Customers\n";
         data += "*******************************************************************************\n";
         data += "\n";
         data += Customer.customers.size() + "\n";
@@ -47,7 +47,7 @@ public class Report {
         data += "*******************************************************************************\n";
         data += "\n";
         data += "\n";
-        data += "Number of items bought\n";
+        data += "Number of items sold\n";
         data += "*******************************************************************************\n";
         data += counterMap.entrySet();
 
@@ -59,6 +59,7 @@ public class Report {
         frame.setTitle("Report Generated for " + LocalDateTime.now().format(formatter));
         frame.add(textArea);
         frame.pack();
+        centerWindow(frame);
         frame.setVisible(true);
 
     }

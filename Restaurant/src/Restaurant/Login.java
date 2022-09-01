@@ -34,7 +34,7 @@ public class Login extends UI implements ActionListener {
                 message(x,"Please enter your password");
             }else{
                 Customer c = Customer.getCustomer(user);
-                Manager m = Manager.getCustomer(user);
+                Manager m = Manager.getManager(user);
 
                 if (c != null && m != null) {
                     if(c.getName().equals(m.getName())){
@@ -55,7 +55,7 @@ public class Login extends UI implements ActionListener {
             }
 
         }else if(e.getSource() == register){
-            Register ui = new Register();
+            Register r = new Register("customer",this);
         }
     }
 

@@ -63,4 +63,17 @@ public abstract class Validation {
         return exists;
     }
 
+
+    public static boolean managerExists(String nameFields){
+        boolean exists = false;
+
+        for (int i = 0; i < Manager.managers.size(); i++) {
+            String currentName = Manager.managers.get(i).getName();
+            if (currentName.equals(nameFields)){
+                exists = true;
+                break;
+            }
+        }
+        return exists;
+    }
 }

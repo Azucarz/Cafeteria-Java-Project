@@ -16,9 +16,16 @@ public class Register extends UI implements ActionListener {
     private JCheckBox terms;
     private Button submit;
     private DataIO data = new DataIO();
+    private String type;
+    private ManagerCustomer ui;
 
+    public Register(String type, Object ui) {
 
-    public Register() {
+        if (ui instanceof ManagerCustomer){
+            this.ui = (ManagerCustomer) ui;
+        }
+
+        this.type = type;
 
         frame = new JFrame();
         panel = new JPanel();
@@ -91,11 +98,23 @@ public class Register extends UI implements ActionListener {
             if (terms.isSelected()){
                 if (isAllFilled(name,email,number,password,confirmPassword)){
                     String message = "Please enter a valid";
-                    if (nameExists(name) == true) {
-                        message(frame, "Username exists!");
-                        nameText.setText("");
-                        return;
+
+                    if(this.type.equals("customer")){
+                        if (nameExists(name) == true) {
+                            message(frame, "Username exists!");
+                            nameText.setText("");
+                            return;
+                        }
                     }
+
+                    if(this.type.equals("manager")){
+                        if (managerExists(name) == true) {
+                            message(frame, "Username exists!");
+                            nameText.setText("");
+                            return;
+                        }
+                    }
+
                     if (isEmail(email) == false) {
                         message += " [Email] ";
                         emailText.setText("");
@@ -113,10 +132,21 @@ public class Register extends UI implements ActionListener {
                     else{
                         if(password.equals(confirmPassword) == false) message(frame,"Passwords do not match!");
                         else{
-                            Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>(),new ArrayList<>()));
-                            data.write("customer");
-                            message(frame,"You are registered as a customer! 😃");
-                            frame.dispose();
+                            if (this.type.equals("customer")){
+                                Customer.customers.add(new Customer(name,Integer.parseInt(password),email,number,0,new ArrayList<>(),new ArrayList<>()));
+                                data.write("customer");
+                                message(frame,"You are registered as a customer! 😃");
+                                ui.draw();
+                                frame.dispose();
+                            }
+                            if (this.type.equals("manager")){
+                                Manager.managers.add(new Manager(name,Integer.parseInt(password),email,number));
+                                data.write("manager");
+                                ui.draw();
+                                message(frame,"You are registered a manager! 😃");
+                                frame.dispose();
+
+                            }
                         }
                     }
 
