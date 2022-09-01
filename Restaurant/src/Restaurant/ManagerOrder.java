@@ -2,12 +2,14 @@ package Restaurant;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.xml.crypto.Data;
 import java.io.*;
 import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 
 
 public class ManagerOrder extends javax.swing.JFrame {
@@ -17,10 +19,11 @@ public class ManagerOrder extends javax.swing.JFrame {
 
     private JTable jTable2;
 
-
+    private DataIO dataIO= new DataIO();
 
 
     public ManagerOrder() {
+
 
         String col[] = {"Item","Amount","Total Price"};
         tableModel = new DefaultTableModel(col, 0);
@@ -38,7 +41,6 @@ public class ManagerOrder extends javax.swing.JFrame {
         }
 
         initComponents();
-
 
 
 
@@ -396,6 +398,7 @@ public class ManagerOrder extends javax.swing.JFrame {
 
     public static void main(String args[]) {
 
+        dataIO.write("orders");
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
                 if ("Nimbus".equals(info.getName())) {
@@ -441,7 +444,6 @@ public class ManagerOrder extends javax.swing.JFrame {
     private javax.swing.JSplitPane jSplitPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
     private javax.swing.JTable jTable1;
-
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextArea jTextArea2;
     private javax.swing.JTextArea jTextArea3;

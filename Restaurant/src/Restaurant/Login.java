@@ -1,7 +1,5 @@
 package Restaurant;
 
-import Restaurant.Dash.DashMan.ManagerUI;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
