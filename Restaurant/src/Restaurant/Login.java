@@ -26,28 +26,28 @@ public class Login extends UI implements ActionListener {
 
         if (e.getSource() == login) {
 
-            String user = textuser.getText();
+            String user = textuser.getText().trim();
             String password = String.valueOf(textpass.getPassword());
 
-            if (textuser.getText().isEmpty()){
+            if (user.isEmpty()){
                 message(x,"Please enter your username");
-            } else if (String.valueOf(textpass.getPassword()).isEmpty()) {
+            } else if (password.isEmpty()) {
                 message(x,"Please enter your password");
             }else{
-                Customer c = Customer.getCustomer(textuser.getText());
-                Manager m = Manager.getCustomer(textuser.getText());
+                Customer c = Customer.getCustomer(user);
+                Manager m = Manager.getCustomer(user);
 
                 if (c != null && m != null) {
                     if(c.getName().equals(m.getName())){
-                        sameName(c,m,user.trim(),Integer.parseInt(password));
+                        sameName(c,m,user,password);
                     }
                 }
 
                 else if (c != null) {
-                    checkPassword(c,user.trim(),Integer.parseInt(password));
+                    checkPassword(c,user,password);
                 }
                 else if (m != null) {
-                    checkPassword(m,user.trim(),Integer.parseInt(password));
+                    checkPassword(m,user,password);
                 }else{
                     message(x,"User Not Found");
                     textuser.setText("");
@@ -106,45 +106,52 @@ public class Login extends UI implements ActionListener {
 
 
 
-    private void sameName(Customer c , Manager m, String user, int pass){
+    private void sameName(Customer c , Manager m, String user, String pass){
         String[] role = {"Manager","Student"};
-        String s = (String)JOptionPane.showInputDialog(
-                x,
-                "Select User Type",
-                null,
-                JOptionPane.PLAIN_MESSAGE,
-                null,
-                role,
-                "Student");
+        try{
+            String s = (String)JOptionPane.showInputDialog(
+                    x,
+                    "Select User Type",
+                    null,
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    role,
+                    "Student");
 
-        if (s.equals("Student")){
-            checkPassword(c,user,pass);
-        }
-        else if(s.equals("Manager")){
-            checkPassword(m,user,pass);
-        }
+            if (s.equals("Student")){
+                checkPassword(c,user,pass);
+            }
+            else if(s.equals("Manager")){
+                checkPassword(m,user,pass);
+            }
+        }catch (NullPointerException e){}
 
     }
 
-    private void checkPassword(User u,String user, int password){
+    private void checkPassword(User u,String user, String password){
 
         if (u.getName().equals(user)) {
-            if (u.getPassword() == password) {
-                if (u instanceof Customer) {
-                    textuser.setText("");
-                    textpass.setText("");
-                    x.setVisible(false);
-                    Customer u1 = (Customer) u;
-                    cui = new CustomerUI(u1);
+            try{
+                if (u.getPassword() == Integer.parseInt(password)) {
+                    if (u instanceof Customer) {
+                        textuser.setText("");
+                        textpass.setText("");
+                        x.setVisible(false);
+                        Customer u1 = (Customer) u;
+                        cui = new CustomerUI(u1);
 
-                } else if (u instanceof Manager) {
-                    textuser.setText("");
+                    } else if (u instanceof Manager) {
+                        textuser.setText("");
+                        textpass.setText("");
+                        x.setVisible(false);
+                        Manager u1 = (Manager) u;
+                        mui = new ManagerUI();
+                    }
+                } else {
+                    message(x,"Incorrect Password!");
                     textpass.setText("");
-                    x.setVisible(false);
-                    Manager u1 = (Manager) u;
-                    mui = new ManagerUI();
                 }
-            } else {
+            }catch (NumberFormatException e){
                 message(x,"Incorrect Password!");
                 textpass.setText("");
             }

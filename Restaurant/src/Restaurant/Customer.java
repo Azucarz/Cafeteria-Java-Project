@@ -4,12 +4,14 @@ import java.util.ArrayList;
 
 public class Customer extends User{
     private ArrayList<Cart> cart;
+    private ArrayList<Order> orders;
     private double balance;
     public static ArrayList<Customer> customers = new ArrayList<Customer>();
 
-    public Customer(String name, int password, String email, String number, double balance, ArrayList<Cart> cart) {
+    public Customer(String name, int password, String email, String number, double balance, ArrayList<Cart> cart, ArrayList<Order> orders) {
         super(name, password, email, number);
         this.cart = cart;
+        this.orders = orders;
         this.balance = balance;
     }
 
@@ -17,9 +19,7 @@ public class Customer extends User{
         Customer.customers = customers;
     }
 
-    public ArrayList<Cart> getCart() {
-        return cart;
-    }
+    public ArrayList<Cart> getCart() {return cart;}
 
     public void setCart(ArrayList<Cart> cart) {
         this.cart = cart;
@@ -34,6 +34,10 @@ public class Customer extends User{
     public void increaseBalance(double balance) {
         this.balance = this.balance + balance;
     }
+
+    public ArrayList<Order> getOrders() {return orders;}
+
+    public void setOrders(ArrayList<Order> orders) {this.orders = orders;}
 
     public static Customer getCustomer(String name){
 

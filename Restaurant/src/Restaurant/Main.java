@@ -9,7 +9,10 @@ public class Main {
         data.read("manager");
         data.read("food");
         data.read("drink");
+        data.read("orders");
 
+
+        CustomerOrderUI y = new CustomerOrderUI(Customer.customers.get(0));
 
 
     }
