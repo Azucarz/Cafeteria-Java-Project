@@ -287,29 +287,33 @@ public class ManagerMenu extends UI implements ActionListener{
                 }catch(NullPointerException ex){}
             }
         } else if (e.getSource() == removeButton) {
-            int wantRemove = JOptionPane.showConfirmDialog(frame,"Are you sure want to remove this item?",null,JOptionPane.OK_CANCEL_OPTION);
-            if(wantRemove == JOptionPane.OK_OPTION){
-                try{
-                    int row = table.getSelectedRow();
-                    Object item = table.getModel().getValueAt(row, 0);
-                    if (this.view.equals("Food")){
-                        for (int i = 0; i < Food.food.size(); i++) {
-                            if (Food.food.get(i).getName().equals(item.toString())){
-                                removeItem(Food.food.get(i));
-                                break;
-                            }
-                        }
+            if(table.getSelectionModel().isSelectionEmpty() == false){
 
-                    } else if (this.view.equals("Drink")) {
-                        for (int i = 0; i < Drink.drink.size(); i++) {
-                            if (Drink.drink.get(i).equals(item.toString())) {
-                                removeItem(Drink.drink.get(i));
-                                break;
+                int wantRemove = JOptionPane.showConfirmDialog(frame,"Are you sure want to remove this item?",null,JOptionPane.OK_CANCEL_OPTION);
+                if(wantRemove == JOptionPane.OK_OPTION){
+                    try{
+                        int row = table.getSelectedRow();
+                        Object item = table.getModel().getValueAt(row, 0);
+                        if (this.view.equals("Food")){
+                            for (int i = 0; i < Food.food.size(); i++) {
+                                if (Food.food.get(i).getName().equals(item.toString())){
+                                    removeItem(Food.food.get(i));
+                                    break;
+                                }
+                            }
+
+                        } else if (this.view.equals("Drink")) {
+                            for (int i = 0; i < Drink.drink.size(); i++) {
+                                if (Drink.drink.get(i).equals(item.toString())) {
+                                    removeItem(Drink.drink.get(i));
+                                    break;
+                                }
                             }
                         }
-                    }
-                }catch (NullPointerException ex){}
+                    }catch (NullPointerException ex){}
+                }
             }
+
 
         }
 

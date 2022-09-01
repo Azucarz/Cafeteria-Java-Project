@@ -12,6 +12,7 @@ public class Login extends UI implements ActionListener {
     private TextField textuser;
     private JPasswordField textpass;
     private Button login,register;
+    private DataIO data = new DataIO();
 
 
     public static CustomerUI cui;
@@ -59,6 +60,7 @@ public class Login extends UI implements ActionListener {
     }
 
     public Login(){
+
         x = new JFrame("APU Cafeteria System");
 
         main = new JPanel();

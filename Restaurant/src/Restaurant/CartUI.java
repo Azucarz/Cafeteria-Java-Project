@@ -179,11 +179,10 @@ public class CartUI extends UI implements ActionListener {
                 else{
                     c.setBalance(c.getBalance() - total);
 
-                    c.getOrders().add(new Order(c.getName(),customerCart,total, LocalDateTime.now()));
-                    Order.orders.add(new Order(c.getName(),customerCart,total, LocalDateTime.now()));
+                    c.getOrders().add(new Order(c.getName(),new ArrayList<>(customerCart),total, LocalDateTime.now()));
+                    Order.orders.add(new Order(c.getName(),new ArrayList<>(customerCart),total,LocalDateTime.now()));
 
                     data.write("orders");
-
                     customerCart.removeAll(customerCart);
                     data.write("customer");
 

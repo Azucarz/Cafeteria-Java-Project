@@ -22,7 +22,9 @@ public class OrderReceipt extends UI implements ActionListener {
     public OrderReceipt(String orderID) {
         for (int i = 0; i < Order.orders.size(); i++) {
             Order currentOrder = Order.orders.get(i);
-            if (currentOrder.getOrderID().equals(orderID)){this.order = currentOrder;}
+            if (currentOrder.getOrderID().equals(orderID)){
+                this.order = currentOrder;
+            }
         }
 
         frame = new JFrame();
@@ -36,14 +38,19 @@ public class OrderReceipt extends UI implements ActionListener {
         calculateSubTotal();
         calculateTax();
 
-        data += "Order " + order.getOrderID() + "\n";
+        data += "Order " + this.order.getOrderID() + "\n";
         data += "\n";
         data += "Item\t\tAmount\tPrice(RM)\n";
         data += "******************************************************************************\n";
-        for (int i = 0; i < order.getOrderList().size(); i++) {
-            Cart currentItem = order.getOrderList().get(i);
+
+        for (int i = 0; i < this.order.getOrderList().size(); i++) {
+
+            Cart currentItem = this.order.getOrderList().get(i);
             data += currentItem.getItem() + "\t\t" + currentItem.getAmt() + "\t" + (currentItem.getPrice() * currentItem.getAmt()) + "\n";
+
         }
+
+
         data += "******************************************************************************\n";
         data += "\t\t\tSubtotal:\t RM" + df.format(subTotal) +"\n";
         data += "\t\t\tTax:\t RM" + df.format(tax) +"\n";
@@ -83,8 +90,8 @@ public class OrderReceipt extends UI implements ActionListener {
     }
 
     private void calculateSubTotal(){
-        for (int i = 0; i < order.getOrderList().size(); i++) {
-            this.subTotal += order.getOrderList().get(i).getAmt() * order.getOrderList().get(i).getPrice();
+        for (int i = 0; i < this.order.getOrderList().size(); i++) {
+            this.subTotal += this.order.getOrderList().get(i).getAmt() * order.getOrderList().get(i).getPrice();
         }
     }
     private void calculateTax(){

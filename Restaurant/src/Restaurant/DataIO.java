@@ -377,16 +377,14 @@ public class DataIO {
 
                             if (current.getName().equals(checkName.trim())) {
 
-                                current.getOrders().add(new Order(orderID,orderStatus,pendingOrder,checkName.trim(),orderList,total,dateOrdered));
-                                Order.orders.add(new Order(orderID,orderStatus,pendingOrder,checkName.trim(),orderList,total,dateOrdered));
+                                current.getOrders().add(new Order(orderID.trim(),orderStatus.trim(),pendingOrder.trim(),checkName.trim(),orderList,total,dateOrdered));
+                                Order.orders.add(new Order(orderID.trim(),orderStatus.trim(),pendingOrder.trim(),checkName.trim(),orderList,total,dateOrdered));
                                 orderList = new ArrayList<>();
                             }
                         }
                     }
 
                 }
-
-
 
         }
 //----------------------------------------------------------------------------------------------------------------------

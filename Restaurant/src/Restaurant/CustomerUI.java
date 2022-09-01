@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class CustomerUI extends UI implements ActionListener {
 
@@ -220,7 +221,6 @@ public class CustomerUI extends UI implements ActionListener {
             cart.setVisible(false);
             logout.setVisible(false);
             profile.setLabel("Back");
-            cartPanel.draw();
             ordersPanel.draw();
             cui.add(ordersPanel.getMainPanel(),BorderLayout.CENTER);
             cui.revalidate();
