@@ -165,6 +165,7 @@ public class ManagerUI extends JFrame {
                                 .addContainerGap())
         );
         this.pack();
+        this.setVisible(true);
     }
 
     private void jButton1ActionPerformed(ActionEvent evt) {

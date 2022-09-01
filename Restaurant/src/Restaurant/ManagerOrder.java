@@ -11,43 +11,46 @@ import java.util.logging.Logger;
 
 public class ManagerOrder extends javax.swing.JFrame {
 
+    private DataIO data = new DataIO();
 
     public ManagerOrder() {
 
+//        TODO WON'T BE NEEDING THIS LATER
+//        data.read("orders");
 
         initComponents();
 
 
+//        TODO CHANGE THIS
 
-
-        String filePath = "C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\orders.txt";
-        File file = new File(filePath);
-
-        try {
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            // get the first line
-            // get the columns name from the first line
-            // set columns name to the jtable model
-            String firstLine = br.readLine().trim();
-            String[] columnsName = firstLine.split(" ");
-            DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
-            model.setColumnIdentifiers(columnsName);
-
-            // get lines from txt file
-            Object[] tableLines = br.lines().toArray();
-
-            // extratct data from lines
-            // set data to jtable model
-            for (Object tableLine : tableLines) {
-                String line = tableLine.toString().trim();
-                String[] dataRow = line.split(" ");
-                model.addRow(dataRow);
-            }
-
-
-        } catch (IOException ex) {
-           // Logger.getLogger(TextFileDataToJTable.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        String filePath = "C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\orders.txt";
+//        File file = new File(filePath);
+//
+//        try {
+//            BufferedReader br = new BufferedReader(new FileReader(file));
+//            // get the first line
+//            // get the columns name from the first line
+//            // set columns name to the jtable model
+//            String firstLine = br.readLine().trim();
+//            String[] columnsName = firstLine.split(" ");
+//            DefaultTableModel model = (DefaultTableModel)jTable2.getModel();
+//            model.setColumnIdentifiers(columnsName);
+//
+//            // get lines from txt file
+//            Object[] tableLines = br.lines().toArray();
+//
+//            // extratct data from lines
+//            // set data to jtable model
+//            for (Object tableLine : tableLines) {
+//                String line = tableLine.toString().trim();
+//                String[] dataRow = line.split(" ");
+//                model.addRow(dataRow);
+//            }
+//
+//
+//        } catch (IOException ex) {
+//           // Logger.getLogger(TextFileDataToJTable.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
 
 
@@ -94,17 +97,21 @@ public class ManagerOrder extends javax.swing.JFrame {
                 jTable2MouseClicked(evt);
             }
         });
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        //   {null, null, null, null},
-                        // {null, null, null, null},
-                        //   {null, null, null, null},
-                        //  {null, null, null, null}
-                },
-                new String [] {
-                        // "Order ID", "Name", "Price", "Order Status"
-                }
-        ));
+
+
+//        TODO OVERRIDED
+//        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+//                new Object [][] {
+//                        //   {null, null, null, null},
+//                        // {null, null, null, null},
+//                        //   {null, null, null, null},
+//                        //  {null, null, null, null}
+//                },
+//                new String [] {
+//                        // "Order ID", "Name", "Price", "Order Status"
+//                }
+//        ));
+
         jScrollPane2.setViewportView(jTable2);
 
         jButton3.setText("Accept");
@@ -206,17 +213,21 @@ public class ManagerOrder extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Order", jSplitPane1);
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
-                new Object [][] {
-                        {},
-                        {},
-                        {},
-                        {}
-                },
-                new String [] {
 
-                }
-        ));
+//        TODO OVERRRIDED
+//        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+//                new Object [][] {
+//                        {},
+//                        {},
+//                        {},
+//                        {}
+//                },
+//                new String [] {
+//
+//                }
+//        ));
+
+
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Done");
@@ -278,7 +289,7 @@ public class ManagerOrder extends javax.swing.JFrame {
 
         jTabbedPane1.addTab("Done", jPanel3);
 
-        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 48)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Times New Roman", 1, 48));
         jLabel6.setText("Orders");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -316,71 +327,77 @@ public class ManagerOrder extends javax.swing.JFrame {
         //accepting part
         String tf1 = jTextField1.getText();
 
-        String datatype;
-        File file = new File("C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\acceptedorder.txt");
-        if (!file.exists())
-            file.createNewFile();
 
-        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
-        BufferedWriter bw = new BufferedWriter(fw);
-        String total = jTable2.getValueAt(jTable2.getSelectedRow(),1).toString();
-        String time = jTable2.getValueAt(jTable2.getSelectedRow(),2).toString();
-        String statusapproval = jTable2.getValueAt(jTable2.getSelectedRow(),3).toString();
-        String StatusPreparation = jTable2.getValueAt(jTable2.getSelectedRow(),4).toString();
-        String Item = jTable2.getValueAt(jTable2.getSelectedRow(),5).toString();
-        String Price = jTable2.getValueAt(jTable2.getSelectedRow(),6).toString();
-        String Quantity = jTable2.getValueAt(jTable2.getSelectedRow(),7).toString();
-        String Item2 = jTable2.getValueAt(jTable2.getSelectedRow(),8).toString();
-        String Price2 = jTable2.getValueAt(jTable2.getSelectedRow(),9).toString();
-        String Quantity2 = jTable2.getValueAt(jTable2.getSelectedRow(),10).toString();
-        String Name = jTable2.getValueAt(jTable2.getSelectedRow(),11).toString();
-        bw.write(tf1 + " " + total + " " + time + " Aproved " + "Preparing " + Item + " " + Price + " " + Quantity + Item2 + " " + Price2 + " " + Quantity2 + " " + Name);
-        bw.close();
+//        TODO CHANGE THIS
+//        String datatype;
+//        File file = new File("C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\acceptedorder.txt");
+//        if (!file.exists())
+//            file.createNewFile();
+//
+//        FileWriter fw = new FileWriter(file.getAbsoluteFile(), true);
+//        BufferedWriter bw = new BufferedWriter(fw);
+//        String total = jTable2.getValueAt(jTable2.getSelectedRow(),1).toString();
+//        String time = jTable2.getValueAt(jTable2.getSelectedRow(),2).toString();
+//        String statusapproval = jTable2.getValueAt(jTable2.getSelectedRow(),3).toString();
+//        String StatusPreparation = jTable2.getValueAt(jTable2.getSelectedRow(),4).toString();
+//        String Item = jTable2.getValueAt(jTable2.getSelectedRow(),5).toString();
+//        String Price = jTable2.getValueAt(jTable2.getSelectedRow(),6).toString();
+//        String Quantity = jTable2.getValueAt(jTable2.getSelectedRow(),7).toString();
+//        String Item2 = jTable2.getValueAt(jTable2.getSelectedRow(),8).toString();
+//        String Price2 = jTable2.getValueAt(jTable2.getSelectedRow(),9).toString();
+//        String Quantity2 = jTable2.getValueAt(jTable2.getSelectedRow(),10).toString();
+//        String Name = jTable2.getValueAt(jTable2.getSelectedRow(),11).toString();
+//        bw.write(tf1 + " " + total + " " + time + " Aproved " + "Preparing " + Item + " " + Price + " " + Quantity + Item2 + " " + Price2 + " " + Quantity2 + " " + Name);
+//        bw.close();
 
 
         //clean part
-        int positionOfTerm = 1;
-        String removeterm = jTextField1.getText();
-        String filepath = "C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\orders.txt";
-        int position = positionOfTerm - 1;
-        String tempFile = "temporder.txt";
-        File oldFile = new File(filepath);
-        File newFile = new File(tempFile);
 
-        String currenLine;
-        String data[];
-        String delimiter = " ";
+//        TODO CHANGE THIS
+//        int positionOfTerm = 1;
+//        String removeterm = jTextField1.getText();
+//        String filepath = "C:\\Users\\User\\Desktop\\Final Restaurant Version\\ManagerDashboard\\src\\orders.txt";
+//        int position = positionOfTerm - 1;
+//        String tempFile = "temporder.txt";
+//        File oldFile = new File(filepath);
+//        File newFile = new File(tempFile);
+//
+//        String currenLine;
+//        String data[];
+//        String delimiter = " ";
 
-        try{
-            FileWriter fw2 = new FileWriter(tempFile,true);
-            BufferedWriter bw2 = new BufferedWriter(fw2);
-            PrintWriter pw2 = new PrintWriter(bw2);
 
-            FileReader fr2 = new FileReader(filepath);
-            BufferedReader br2 = new BufferedReader(fr2);
-
-            while ((currenLine = br2.readLine()) !=null){
-                data = currenLine.split(" ");
-                if(!(data[position].equalsIgnoreCase(removeterm)))
-                {
-                    pw2.println(currenLine);
-                }
-            }
-
-            pw2.flush();
-            pw2.close();
-            fr2.close();
-            br2.close();
-            bw2.close();
-            fw2.close();
-
-            oldFile.delete();
-            File dump = new File(filepath);
-            newFile.renameTo(dump);
-
-        }catch (Exception e){
-
-        }
+//        TODO CHANGE THIS
+//        try{
+//            FileWriter fw2 = new FileWriter(tempFile,true);
+//            BufferedWriter bw2 = new BufferedWriter(fw2);
+//            PrintWriter pw2 = new PrintWriter(bw2);
+//
+//            FileReader fr2 = new FileReader(filepath);
+//            BufferedReader br2 = new BufferedReader(fr2);
+//
+//            while ((currenLine = br2.readLine()) !=null){
+//                data = currenLine.split(" ");
+//                if(!(data[position].equalsIgnoreCase(removeterm)))
+//                {
+//                    pw2.println(currenLine);
+//                }
+//            }
+//
+//            pw2.flush();
+//            pw2.close();
+//            fr2.close();
+//            br2.close();
+//            bw2.close();
+//            fw2.close();
+//
+//            oldFile.delete();
+//            File dump = new File(filepath);
+//            newFile.renameTo(dump);
+//
+//        }catch (Exception e){
+//
+//        }
 
     }
 
