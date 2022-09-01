@@ -180,7 +180,7 @@ public class ManagerOrder extends UI implements ActionListener {
                         break;
                     }
                 }
-                data.write("customers");
+                data.write("customer");
                 data.write("orders");
                 draw(view);
             }
@@ -203,7 +203,7 @@ public class ManagerOrder extends UI implements ActionListener {
                         break;
                     }
                 }
-                data.write("customers");
+                data.write("customer");
                 data.write("orders");
                 draw(view);
 

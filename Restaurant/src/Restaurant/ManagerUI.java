@@ -7,8 +7,8 @@ import java.awt.event.ActionListener;
 
 public class ManagerUI extends UI implements ActionListener {
     private JFrame frame;
-    private Button menuButton, customerButton, managerButton, orderButton, reportButton, feedbackButton;
-    private JPanel titleContainer,mainPanel;
+    private Button menuButton, accountsButton, orderButton, reportButton, feedbackButton, logoutButton;
+    private JPanel titleContainer,mainPanel, logoutContainer, panel;
     private JLabel title;
     private GridLayout grid;
 
@@ -27,32 +27,35 @@ public class ManagerUI extends UI implements ActionListener {
         grid.setVgap(10);
         grid.setHgap(10);
 
+        panel = new JPanel();
+        panel.setLayout(grid);
+
         mainPanel = new JPanel();
         mainPanel.setLayout(grid);
 
+
         menuButton = new Button("Menu");
         orderButton = new Button("Order");
-        customerButton = new Button("Customers");
-        managerButton = new Button("Managers");
+        accountsButton = new Button("Accounts");
         reportButton = new Button("Reports");
         feedbackButton = new Button("Feedback");
+        logoutButton = new Button("Logout");
 
         menuButton.addActionListener(this);
         orderButton.addActionListener(this);
-        customerButton.addActionListener(this);
-        managerButton.addActionListener(this);
+        accountsButton.addActionListener(this);
         reportButton.addActionListener(this);
         feedbackButton.addActionListener(this);
+        logoutButton.addActionListener(this);
 
 
         mainPanel.add(menuButton);
         mainPanel.add(orderButton);
-        mainPanel.add(customerButton);
-        mainPanel.add(managerButton);
+        mainPanel.add(accountsButton);
         mainPanel.add(reportButton);
         mainPanel.add(feedbackButton);
+        mainPanel.add(logoutButton);
         mainPanel.setBorder(BorderFactory.createEmptyBorder(50,50,50,50));
-
 
         frame.setLayout(new BorderLayout());
         frame.add(titleContainer,BorderLayout.NORTH);
@@ -69,14 +72,15 @@ public class ManagerUI extends UI implements ActionListener {
             ManagerMenu menu = new ManagerMenu();
         } else if (e.getSource() == orderButton) {
             ManagerOrder order = new ManagerOrder();
-        } else if (e.getSource() == customerButton) {
-
-        } else if (e.getSource() == managerButton) {
+        } else if (e.getSource() == accountsButton) {
 
         } else if (e.getSource() == reportButton) {
-
+            Report r = new Report();
         } else if (e.getSource() == feedbackButton) {
 
+        } else if (e.getSource() == logoutButton) {
+            frame.dispose();
+            Login.getLogin().setVisible(true);
         }
     }
 }
