@@ -82,7 +82,7 @@ public class CustomerOrderUI extends UI{
                 if (e.getClickCount() == 2){
                     int row = currentData.getSelectedRow();
                     Object itemName = currentData.getModel().getValueAt(row, 0);
-                    OrderReceipt receipt = new OrderReceipt(itemName.toString());
+                    OrderReceipt receipt = new OrderReceipt(itemName.toString(),true);
                 }
             }
         });
@@ -93,7 +93,7 @@ public class CustomerOrderUI extends UI{
                 if (e.getClickCount() == 2){
                     int row = previousData.getSelectedRow();
                     Object itemName = previousData.getModel().getValueAt(row, 0);
-                    OrderReceipt receipt = new OrderReceipt(itemName.toString());
+                    OrderReceipt receipt = new OrderReceipt(itemName.toString(),true);
                 }
             }
         });

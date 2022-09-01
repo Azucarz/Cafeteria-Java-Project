@@ -19,7 +19,7 @@ public class OrderReceipt extends UI implements ActionListener {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private DataIO data = new DataIO();
 
-    public OrderReceipt(String orderID) {
+    public OrderReceipt(String orderID, boolean btns) {
         for (int i = 0; i < Order.orders.size(); i++) {
             Order currentOrder = Order.orders.get(i);
             if (currentOrder.getOrderID().equals(orderID)){
@@ -80,6 +80,9 @@ public class OrderReceipt extends UI implements ActionListener {
 
         mainPanel.add(receipt);
         mainPanel.add(btnContainer);
+
+        if (btns == false){mainPanel.remove(btnContainer);}
+
         mainPanel.setBorder(BorderFactory.createEmptyBorder(25,25,25,25));
         frame.add(mainPanel);
         frame.pack();
@@ -125,7 +128,14 @@ public class OrderReceipt extends UI implements ActionListener {
             }
 
         }else if (e.getSource() == giveFeedback){
-            //TODO Give Feedback
+            try{
+                String message = JOptionPane.showInputDialog("Please provide us your feedback for this orderr️");
+                if (message.isBlank() == false){
+                    Feedback.feedbacks.add(new Feedback(this.order.getOrderID(),message));
+                    data.write("feedback");
+                }
+            }catch (NullPointerException ex){}
+
         }
 
     }

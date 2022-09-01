@@ -77,7 +77,7 @@ public class ManagerUI extends UI implements ActionListener {
         } else if (e.getSource() == reportButton) {
             Report r = new Report();
         } else if (e.getSource() == feedbackButton) {
-
+            ManagerFeedback f = new ManagerFeedback();
         } else if (e.getSource() == logoutButton) {
             frame.dispose();
             Login.getLogin().setVisible(true);

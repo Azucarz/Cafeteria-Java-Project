@@ -15,6 +15,7 @@ public class Main {
         data.read("food");
         data.read("drink");
         data.read("orders");
+        data.read("feedback");
 
     }
 

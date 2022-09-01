@@ -150,6 +150,13 @@ public class DataIO {
                 closeFormatter();
                 break;
 
+            case "feedback":
+                for (int i = 0; i < Feedback.feedbacks.size(); i++) {
+                    x.format("%s\n",Feedback.feedbacks.get(i).getOrderID());
+                    x.format("%s\n",Feedback.feedbacks.get(i).getFeedback());
+                }
+                closeFormatter();
+                break;
         }
 //----------------------------------------------------------------------------------------------------------------------
     }
@@ -385,7 +392,14 @@ public class DataIO {
                     }
 
                 }
+            case "feedback":
+                while(y.hasNextLine()){
+                    String orderNo = y.nextLine().trim();
+                    String feedback = y.nextLine();
 
+                    Feedback.feedbacks.add(new Feedback(orderNo,feedback));
+            }
+                break;
         }
 //----------------------------------------------------------------------------------------------------------------------
     }
