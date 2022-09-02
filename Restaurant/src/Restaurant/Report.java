@@ -44,7 +44,7 @@ public class Report extends UI{
         data += "Number of Customers\n";
         data += "*******************************************************************************\n";
         data += "\n";
-        data += Customer.customers.size() + "\n";
+        data += realPurchases.size() + "\n";
         data += "\n";
         data += "*******************************************************************************\n";
         data += "\n";
