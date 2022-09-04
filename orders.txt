@@ -27,7 +27,7 @@ ORD-13
 26.40 
 2022-09-02T13:32:30.755478 
 Not Ready 
-Pending 
+Accepted 
 Mee Goreng Mamak 12.00 2 
 Wong Zhi Zhen
 ORD-14 
@@ -62,14 +62,14 @@ ORD-11
 143.00 
 2022-09-02T13:30:08.435446 
 Not Ready 
-Pending 
+Accepted 
 Cappuccino 13.00 10 
 Kau Guan Kiat
 ORD-6 
 143.00 
 2022-09-02T13:28:36.086976 
 Not Ready 
-Pending 
+Accepted 
 Latte 13.00 10 
 Chun Seng
 ORD-7 
@@ -84,7 +84,7 @@ ORD-8
 66.00 
 2022-09-02T13:29:14.437891 
 Not Ready 
-Pending 
+Accepted 
 Youtiao 12.00 5 
 Chun Seng
 ORD-5 

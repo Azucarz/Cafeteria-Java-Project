@@ -185,15 +185,16 @@ public class ManagerMenu extends UI implements ActionListener{
                 if (Validation.isPrice(priceText.getText())){
                     if(item instanceof Food){
                         for (int i = 0; i < Food.food.size(); i++) {
-                            if(Food.food.get(i).getName().equals(nameText.getText())){message(frame,"Name is not valid");}
-                            else {
+                            if(Food.food.get(i).getName().equals(nameText.getText())){
                                 if (Food.food.get(i) == item){
-                                    Food.food.get(i).setName(nameText.getText());
+                                    Food.food.get(i).setName(nameText.getText().trim());
                                     Food.food.get(i).setPrice(Double.parseDouble(priceText.getText()));
                                     data.write("food");
                                     draw(this.view);
                                     message(frame,"Item edited!");
                                     break;
+                                }else {
+                                    message(frame,"Name is not valid");
                                 }
                             }
                         }
@@ -201,8 +202,7 @@ public class ManagerMenu extends UI implements ActionListener{
 
                     else if(item instanceof  Drink){
                         for (int i = 0; i < Drink.drink.size(); i++) {
-                            if(Drink.drink.get(i).getName().equals(nameText.getText())){message(frame,"Name is not valid");}
-                            else {
+                            if(Drink.drink.get(i).getName().equals(nameText.getText())){
                                 if (Drink.drink.get(i) == item) {
                                     Drink.drink.get(i).setName(nameText.getText());
                                     Drink.drink.get(i).setPrice(Double.parseDouble(priceText.getText()));
@@ -210,6 +210,8 @@ public class ManagerMenu extends UI implements ActionListener{
                                     draw(this.view);
                                     message(frame,"Item edited!");
                                     break;
+                                }else {
+                                    message(frame,"Name is not valid");
                                 }
                             }
                         }

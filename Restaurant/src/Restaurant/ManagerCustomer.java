@@ -26,6 +26,7 @@ public class ManagerCustomer extends UI implements ActionListener {
         scrollPanel = new JScrollPane();
 
 
+        
         itemContainer = new JPanel();
         itemContainer.setLayout(new FlowLayout());
         btnContainer = new JPanel();

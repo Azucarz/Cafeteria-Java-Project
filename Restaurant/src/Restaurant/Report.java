@@ -36,9 +36,9 @@ public class Report extends UI{
         data += "Report Generated for " + LocalDateTime.now().format(formatter) + "\n";
         data += "*******************************************************************************\n";
         data += "\n";
-        data += "Revenue for the day:\t\t\t" + revenue + "\n";
+        data += "Revenue for the day:\t\t\t RM" + df.format(revenue) + "\n";
         data += "\n";
-        data +=  "Tax:\t\t\t\t" + df.format(tax) + "\n";
+        data +=  "Tax:\t\t\t\tRM" + df.format(tax) + "\n";
         data += "*******************************************************************************\n";
         data += "\n";
         data += "Number of Customers\n";
@@ -53,7 +53,7 @@ public class Report extends UI{
         data += "*******************************************************************************\n";
         data += "\n";
         hashMap.forEach((key, value) -> {
-            data += key + "\t" + value + "\n";
+            data += key + "\t\t\t" + value + "\n";
         });
         data += "\n";
         data += "*******************************************************************************\n";

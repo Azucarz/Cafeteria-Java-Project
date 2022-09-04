@@ -1,4 +1,4 @@
-Appam 12.00
+Appam 1.00
 Samosa 12.00
 Bhajji 12.00
 Youtiao 12.00
